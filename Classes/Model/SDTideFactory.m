@@ -1,0 +1,244 @@
+//
+//  SDTideFactory.m
+//  xtidelib
+//
+//  Created by Michael Parlee on 7/16/08.
+//  Copyright 2009 Michael Parlee. All rights reserved.
+/*
+   This file is part of ShralpTide.
+
+   ShralpTide is free software: you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation, either version 3 of the License, or
+   (at your option) any later version.
+
+   ShralpTide is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+
+   You should have received a copy of the GNU General Public License
+   along with ShralpTide.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#import "SDTideFactory.h"
+#include "everythi.h"
+#include "SDTideStation.h"
+
+@implementation SDTideFactory
+
++(SDTide*)tideWithStart:(NSDate*)startDate End:(NSDate*)endDate andInterval:(int)interval atLocation:(NSString *)aLocation
+{
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy:MM:dd:HH:mm"];
+    char cStart[30];
+    char cEnd[30];
+    time_t stoptime = 0;
+    
+    /* needs to be an input parameter */
+    strcpy(location,[aLocation cStringUsingEncoding:NSISOLatin2StringEncoding]);
+    
+    strcpy(hfile_name,[[[NSBundle mainBundle] 
+                   pathForResource:@"harmonics" ofType:@""] 
+                  cStringUsingEncoding: NSASCIIStringEncoding]);
+    
+    load_data ();
+    if (checkyear) {
+        check_epoch ();
+        exit (0);
+    }
+    
+	NSLog(@"start date = %@", startDate);
+	NSLog(@"start date string = %@", [dateFormatter stringFromDate:startDate]);
+	NSLog(@"end date string = %@", [dateFormatter stringFromDate:endDate]);
+	
+    [[dateFormatter stringFromDate:startDate] getCString:cStart maxLength:30 encoding:NSASCIIStringEncoding];
+    [[dateFormatter stringFromDate:endDate] getCString:cEnd maxLength:30 encoding:NSASCIIStringEncoding];
+	[dateFormatter release];
+	
+    faketime = parse_time_string(cStart);
+    stoptime = parse_time_string(cEnd);
+    
+    time_t start, end;
+    assert (interval > 0);
+    if (faketime < stoptime) {
+        start = faketime;
+        end = stoptime;
+    } else {
+        start = stoptime;
+        end = faketime;
+    }
+    
+    NSMutableArray *tideArray = [[NSMutableArray alloc] init];
+    for (; start<=end; start+=(time_t)interval) {
+        NSAutoreleasePool *loopPool = [[NSAutoreleasePool alloc] init];
+        
+        float height = time2asecondary(start);
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:(unsigned long)start];
+        SDTideInterval *tide = [[[SDTideInterval alloc] initWithDate:date andHeight:height] autorelease];
+        
+        [tideArray addObject: tide];
+        
+        [loopPool release];
+    }
+    
+    NSArray *tideEvents = [self populateTideEvents:stoptime];
+    
+    SDTide *tideObj = [[[SDTide alloc] initWithStartDate:startDate EndDate:endDate Events:tideEvents andIntervals:tideArray] autorelease];
+	
+	[tideArray release];
+	
+	[tideObj setUnitLong:[NSString stringWithCString:units encoding:NSISOLatin2StringEncoding]];
+	[tideObj setUnitShort:[NSString stringWithCString:units_abbrv encoding:NSISOLatin2StringEncoding]];
+	[tideObj setLocation:[NSString stringWithCString:last_location encoding:NSISOLatin2StringEncoding]];
+	
+	free_nodes();
+	free_epochs();
+	free_cst();    
+    return tideObj;
+}
+
+
++(NSArray*) populateTideEvents:(time_t) stoptime
+{
+    NSMutableArray *result = [[[NSMutableArray alloc] init] autorelease];
+    int event_type;
+    SDTideState high, low, rise, fall;
+    next_ht = faketime;
+    if (iscurrent) {
+        high = SDTideStateMaxFlood;
+        low = SDTideStateMaxEbb;
+        rise = fall = SDTideStateSlack;
+    } else {
+        high = SDTideStateHightTide;
+        low =  SDTideStateLowTide;
+        rise = SDTideStateRising;
+        fall = SDTideStateFalling;
+    }
+
+     while ((long)next_ht <= (long)stoptime) {
+        event_type = update_high_tide ();
+        if ((long)next_ht > (long)stoptime) {
+            break;
+        }
+        NSDate *time = [NSDate dateWithTimeIntervalSince1970:(long)next_ht];
+        
+        if ((event_type & 4) && (event_type & 1)) {
+            SDTideEvent *event = [[SDTideEvent alloc] initWithTime:time Event:fall andHeight: time2atide (next_ht)];
+            [result addObject:event];
+            [event release];
+        }
+        if ((event_type & 8) && (event_type & 2)) {
+            SDTideEvent *event = [[SDTideEvent alloc] initWithTime:time Event:rise andHeight: time2atide (next_ht)];
+            [result addObject:event];
+            [event release];
+        }
+        if (event_type & 1) {
+            if (llevelmult) {
+                SDTideEvent *event = [[SDTideEvent alloc] initWithTime:time Event:low andHeight: ltleveloff * time2atide (next_ht)];
+                [result addObject:event];
+                [event release];
+            }
+            else {
+                SDTideEvent *event = [[SDTideEvent alloc] initWithTime:time Event:low andHeight: ltleveloff + time2atide (next_ht)];
+                [result addObject:event];
+                [event release];
+            }
+                
+        }
+        if (event_type & 2) {
+            if (hlevelmult) {
+                SDTideEvent *event = [[SDTideEvent alloc] initWithTime:time Event:high andHeight: ltleveloff * time2atide (next_ht)];
+                [result addObject:event];
+                [event release];
+            }
+            else {
+                SDTideEvent *event = [[SDTideEvent alloc] initWithTime:time Event:high andHeight: ltleveloff + time2atide (next_ht)];
+                [result addObject:event];
+                [event release];
+            }
+        }
+        if ((event_type & 4) && !(event_type & 1)) {
+            SDTideEvent *event = [[SDTideEvent alloc] initWithTime:time Event:fall andHeight: time2atide (next_ht)];
+            [result addObject:event];
+            [event release];
+        }
+        if ((event_type & 8) && !(event_type & 2)) {
+            SDTideEvent *event = [[SDTideEvent alloc] initWithTime:time Event:rise andHeight: time2atide (next_ht)];
+            [result addObject:event];
+            [event release];
+        }
+    }
+    
+    return result;
+}
+
++(NSArray*)locations {
+	NSMutableArray *locations = [[[NSMutableArray alloc] init] autorelease];
+	
+	FMDatabase* db = [FMDatabase databaseWithPath:[[NSBundle mainBundle] pathForResource:@"tidestations" ofType:@"sqlite"]];
+    if (![db open]) {
+        NSLog(@"Could not open db.");
+    }
+	
+	FMResultSet *rs = [db executeQuery:@"select name, lat, long from station"];
+
+	if ([db hadError]) {
+		NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+	}
+	
+	while ([rs next]) {
+		SDTideStation *station = [[SDTideStation alloc] init];
+		station.name = [rs stringForColumn:@"name"];
+		station.latitude = [NSNumber numberWithDouble:[rs doubleForColumn:@"lat"]];
+		station.longitude = [NSNumber numberWithDouble:[rs doubleForColumn:@"long"]];
+		[locations addObject:station];
+		[station release];
+    }
+    // close the result set.
+    // it'll also close when it's dealloc'd, but we're closing the database before
+    // the autorelease pool closes, so sqlite will complain about it.
+    [rs close];
+	[db close];
+	return locations;
+}
+
++(NSArray*)locationsNearLatitude:(double)latitude andLongitude:(double)longitude {
+	NSMutableArray *locations = [[[NSMutableArray alloc] init] autorelease];
+	
+	NSNumber *minLongitude = [NSNumber numberWithInt:(int)longitude - 2];
+	NSNumber *maxLongitude = [NSNumber numberWithInt:(int)longitude + 2];
+	NSNumber *minLatitude = [NSNumber numberWithInt:(int)latitude - 2];
+	NSNumber *maxLatitude = [NSNumber numberWithInt:(int)latitude + 2];
+	
+	FMDatabase* db = [FMDatabase databaseWithPath:[[NSBundle mainBundle] pathForResource:@"tidestations" ofType:@"sqlite"]];
+    if (![db open]) {
+        NSLog(@"Could not open db.");
+    }
+	
+	FMResultSet *rs = [db executeQuery:@"select name, lat, long from station where lat between ? and ? and long between ? and ?",
+		 minLatitude, 
+		 maxLatitude, 
+		 minLongitude,
+		 maxLongitude];
+
+	if ([db hadError]) {
+        NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
+    }
+    while ([rs next]) {
+		SDTideStation *station = [[SDTideStation alloc] init];
+		station.name = [rs stringForColumn:@"name"];
+		station.latitude = [NSNumber numberWithDouble:[rs doubleForColumn:@"lat"]];
+		station.longitude = [NSNumber numberWithDouble:[rs doubleForColumn:@"long"]];
+		[locations addObject:station];
+		[station release];
+    }
+    // close the result set.
+    // it'll also close when it's dealloc'd, but we're closing the database before
+    // the autorelease pool closes, so sqlite will complain about it.
+    [rs close];  
+	[db close];
+	return locations;
+}
+
+@end
