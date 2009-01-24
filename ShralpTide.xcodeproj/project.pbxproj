@@ -79,8 +79,8 @@
 		DC1EBBE90EDBAEFA0093FA18 /* WaitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitView.h; path = Classes/Views/WaitView.h; sourceTree = "<group>"; };
 		DC1EBBEA0EDBAEFA0093FA18 /* WaitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitView.m; path = Classes/Views/WaitView.m; sourceTree = "<group>"; };
 		DC25A1FA0EEA575D0038078B /* ChartViewDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartViewDatasource.h; path = Classes/Controllers/ChartViewDatasource.h; sourceTree = "<group>"; };
-		DC2975DC0F2BDBF3000D0E7E /* location_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_icon.png; sourceTree = "<group>"; };
-		DC2975DD0F2BDBF4000D0E7E /* world_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = world_icon.png; sourceTree = "<group>"; };
+		DC2975DC0F2BDBF3000D0E7E /* location_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = location_icon.png; path = Resources/location_icon.png; sourceTree = "<group>"; };
+		DC2975DD0F2BDBF4000D0E7E /* world_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = world_icon.png; path = Resources/world_icon.png; sourceTree = "<group>"; };
 		DC2E8CDA0F188BFB00DCA0A7 /* HomeScreenIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HomeScreenIcon.png; path = Resources/HomeScreenIcon.png; sourceTree = "<group>"; };
 		DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = link_arrow.png; path = Resources/link_arrow.png; sourceTree = "<group>"; };
 		DC2F28490E5A758800577E55 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/Controllers/MainViewController.m; sourceTree = "<group>"; };
