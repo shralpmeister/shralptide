@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="28"/>
+			<integer value="75"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -343,7 +343,7 @@
 					<object class="IBUIButton" id="99184593">
 						<reference key="NSNextResponder" ref="169245649"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{277, 398}, {18, 19}}</string>
+						<string key="NSFrame">{{264, 385}, {36, 36}}</string>
 						<reference key="NSSuperview" ref="169245649"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -354,8 +354,11 @@
 							<double key="NSSize">1.500000e+01</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<int key="IBUIButtonType">3</int>
 						<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
+						<string key="IBUIHighlightedTitle">GlobalSearchButton</string>
+						<string key="IBUIDisabledTitle">GlobalSearchButton</string>
+						<string key="IBUISelectedTitle">GlobalSearchButton</string>
+						<string key="IBUINormalTitle">GlobalSearchButton</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="868999086">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -364,11 +367,18 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="922786706">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">world_icon.png</string>
+						</object>
+						<reference key="IBUIDisabledImage" ref="922786706"/>
+						<reference key="IBUISelectedImage" ref="922786706"/>
+						<reference key="IBUINormalImage" ref="922786706"/>
 					</object>
 					<object class="IBUIButton" id="632264901">
 						<reference key="NSNextResponder" ref="169245649"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 388}, {36, 36}}</string>
+						<string key="NSFrame">{{20, 385}, {36, 36}}</string>
 						<reference key="NSSuperview" ref="169245649"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -385,13 +395,13 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUIHighlightedImage" id="692187514">
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="457304913">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">LocationButton.png</string>
+							<string key="NSResourceName">location_icon.png</string>
 						</object>
-						<reference key="IBUIDisabledImage" ref="692187514"/>
-						<reference key="IBUISelectedImage" ref="692187514"/>
-						<reference key="IBUINormalImage" ref="692187514"/>
+						<reference key="IBUIDisabledImage" ref="457304913"/>
+						<reference key="IBUISelectedImage" ref="457304913"/>
+						<reference key="IBUINormalImage" ref="457304913"/>
 					</object>
 					<object class="IBUIImageView" id="8032471">
 						<reference key="NSNextResponder" ref="169245649"/>
@@ -696,8 +706,6 @@
 							<reference ref="87202858"/>
 							<reference ref="599332888"/>
 							<reference ref="55812179"/>
-							<reference ref="632264901"/>
-							<reference ref="99184593"/>
 							<reference ref="8032471"/>
 							<reference ref="6812758"/>
 							<reference ref="151570224"/>
@@ -705,6 +713,8 @@
 							<reference ref="734130036"/>
 							<reference ref="697825168"/>
 							<reference ref="38320982"/>
+							<reference ref="632264901"/>
+							<reference ref="99184593"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -918,7 +928,7 @@
 					<string key="superclassName">UIView</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/MainView.h</string>
+						<string key="minorKey">Classes/Views/MainView.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -994,13 +1004,13 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/MainViewController.h</string>
+						<string key="minorKey">Classes/Controllers/MainViewController.h</string>
 					</object>
 				</object>
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.LastKnownRelativeProjectPath">PhoneTide.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../ShralpTide.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 	</data>
 </archive>
