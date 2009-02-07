@@ -1,0 +1,132 @@
+    ShralpTide  a tide clock and tide predictor for mobile devices
+    Version 1.0.0
+
+    Copyright (C) 2009  Michael Parlee
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    The tide prediction algorithms contained in this software are
+    derived from XTide 1.6.2. For more information please visit the
+    XTide website. http://www.flaterco.com/xtide
+
+THIS PACKAGE IS AVAILABLE FROM:
+http://github.com/shralpmeister/shralptide
+
+Introduction
+------------
+
+ShralpTide provides a reduced feature set of the excellent Unix
+command line tide tool, XTide, in a format accessible to the casual
+beach goer on the iPhone mobile platform.
+
+Hardware and operating system requirements
+------------------------------------------
+
+ShralpTide can be run only on an Apple iPhone or iPhone simulator. 
+The iPhone simulator requires an Intel-based Mac running Mac OS X 10.5
+or newer.  It can be obtained free of charge from Apple as part of the 
+iPhone SDK at http://developer.apple.com/iphone. Registration is required.
+
+ShralpTide can be installed using the iTunes App Store or by using Apple's
+iPhone SDK. Using the SDK it is possible to install it on the iPhone 
+simulator or on an iPhone provisioned with a Development key.
+
+Usage
+-----
+
+Once installed the ShralpTide icon will show up on the iPhone home screen.
+Press the icon with a finger to launch it.
+
+Launching ShralpTide will bring up a utility style interface. It takes a few
+seconds to load so be patient. Once it has finished caluculating tides you
+can scroll sideways between the days. Dots at the bottom of the screen show
+the number of pages -- the highlighted dot showing the position of the
+current page.
+
+The first page shows today's tide. The tide level closest to the current
+current time is displayed at the top with an upward pointing arrow indicating 
+an increasing or flowing tide and a downward pointing arrow indicting a
+decreasing or ebbing tide.
+
+Turning the device from a portrait to landscape orientation will display a
+plot of the tidal movement for the selected day. If the present day is 
+selected a red line or cursor indicates the current time. In the bar at the
+top of the screen the tide level and associated time are displayed. Touching 
+the screen causes the cursor to jump to the point of contact and the tide
+shown at the top of the screen changes to reflect the tide level at the 
+point in time nearest the cursor. This works the same for the following days
+except that the cursor rests on midnight instead of the current time.
+
+When ShralpTide is first launched after installation it calculates tides for
+the default tide station at La Jolla, California. To choose the location
+nearest you touch the location icon at the bottom left of the portrait mode
+display. This feature will ask the iPhone or iTouch for its location and
+query the tide stations for those closest to that location. The display will
+flip over and display a list of those locations sorted in descending order by
+distance from the current position. This is most likely to succeed on an 
+iPhone with GPS or good cell reception and most likely to fail on an iPod
+touch. 
+
+If the device doesn't return a location the globe icon on the bottom right
+of the portrait display will allow selection from a list of all the tide
+stations world wide. Typing the name of a location in the search field will
+filter the list. The last tide station selected will be remembered as long
+as ShralpTide remains installed on the device.
+
+Installing from source code
+---------------------------
+
+To build ShralpTide from source an Intel based machine running Mac OS X 10.5
+and the iPhone SDK is required. The iPhone SDK is available as a free download
+from Apple's developer web site, http://developer.apple.com/iphone. The SDK
+alone will be enough to build and deploy to an iPhone simulator. Additional
+steps are needed to deploy on the iPhone itself. See Apple's website and do
+some searching on the internet for available deployment options.
+
+Download the source code from Github at 
+http://github.com/shralpmeister/shralptide.
+
+The source is available in both zip and tar.gz formats or you can clone the
+git repository with the following command:
+
+    git clone git://github.com/shralpmeister/shralptide.git
+
+To build and run the project open the project, ShralpTide.xcodeproj, in XCode.
+
+Select the "Debug - Simulator" build configuration. Click the build and run 
+icon in the menu bar. The build will take a little while to finish. When
+finished it will launch the Simulator, install ShralpTide, and run it.
+
+Repeat the same steps but with "Debug - Device" to install it on your 
+development iPhone.
+
+Acknowlegements
+---------------
+
+Thanks to Dave Flater of XTide fame for providing excellent free software
+and writing awesome FAQs.
+
+Thanks to all the XTide contributers.
+
+Thanks to Phill Tornroth and David Snow for motivating me to continue when 
+I had already satisfied my curiosity.
+
+Thanks to my wife Larissa and my children for putting up with my late nights 
+of coding and graphics designing.
+
+Contact Info
+------------
+
+Mike Parlee
+shralpmeister@me.com
