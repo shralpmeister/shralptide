@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<commits created="2009-02-11T22:16:09-08:00">
+<commit id="16d203deaab009e803b0bfc05aade897f73c6879">
+<date>Fri, 6 Feb 2009 23:30:11 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[Finally wrote the README content. XTide licenses.]]></subject><msg>
+<![CDATA[
+
+]]>
+</msg>
+</commit>
+<commit id="c8aecd29c4e947283e43aeb9e3c7a3dadee8c9f0">
+<date>Sat, 24 Jan 2009 15:57:41 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[Moved location selector icons into the resources directory.]]></subject><msg>
+<![CDATA[
+
+]]>
+</msg>
+</commit>
+<commit id="fc4131ba732e71da2de64b5d6c7d9fd9ce113e6e">
+<date>Sat, 24 Jan 2009 15:42:36 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[Replaces tide station selection buttons with made]]></subject><msg>
+<![CDATA[
+scratch replacements. Apple rejected the original
+app submission for improper use of the info
+button.
+]]>
+</msg>
+</commit>
+<commit id="6d9f8c3badb16aa844101a835d8befdb4a1bbd8b">
+<date>Thu, 15 Jan 2009 23:54:43 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[Initial import]]></subject><msg>
+<![CDATA[
+
+]]>
+</msg>
+</commit>
+<commit id="b1052c7e3a2b1a2a092c5c2d14b44a487edfd589">
+<date>Tue, 13 Jan 2009 00:56:27 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[first commit]]></subject><msg>
+<![CDATA[
+
+]]>
+</msg>
+</commit>
+</commits>
