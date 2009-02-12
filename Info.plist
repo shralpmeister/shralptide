@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>HomeScreenIcon.png</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.shralpsoftware.${PRODUCT_NAME:identifier}</string>
+	<string>com.shralpsoftware.shralptide</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

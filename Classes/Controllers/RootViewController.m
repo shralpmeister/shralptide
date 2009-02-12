@@ -195,9 +195,11 @@ static NSUInteger kNumberOfPages = 5;
 
 -(NSDate *)add:(int)number daysToDate: (NSDate*) date {
 	unsigned int unitFlags = NSDayCalendarUnit;
-	NSDateComponents *comps = [[[NSDateComponents alloc] init] autorelease];
+	NSDateComponents *comps = [[NSDateComponents alloc] init];
 	[comps setDay: number];
-	return [currentCalendar dateByAddingComponents:comps toDate:date options:unitFlags];
+	NSDate *result = [currentCalendar dateByAddingComponents:comps toDate:date options:unitFlags];
+	[comps release];
+	return result;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
@@ -504,12 +506,12 @@ static NSUInteger kNumberOfPages = 5;
 	
 	[comps release];
 	
-	sdTide = [SDTideFactory tideWithStart:start 
+	SDTide *result = [SDTideFactory tideWithStart:start 
 									   End:end 
 							   andInterval:900 
 								atLocation:location];
 	
-	return sdTide;
+	return result;
 }
 -(void)showMainView {
 	if (chartViewController == nil) {

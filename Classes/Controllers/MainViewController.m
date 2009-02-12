@@ -79,9 +79,10 @@
 -(void)refresh {
 	[self clearTable];
 	
-	NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setDateStyle:NSDateFormatterFullStyle];
 	[date setText: [formatter stringFromDate:[sdTide startTime]]];
+	[formatter release];
 	
 	[locationLabel setText:[sdTide shortLocationName]];
 	

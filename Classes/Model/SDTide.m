@@ -104,6 +104,7 @@
 
 -(void)dealloc
 {
+	NSLog(@"Deallocating SDTide %@",self);
     [startTime release];
     [stopTime release];
     [intervals release];

@@ -479,11 +479,13 @@
 			baseConfigurationReference = DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D465FCAA-FFB5-44A7-A0B4-A979106139DB";
 				SDKROOT = iphoneos2.2;
 			};
 			name = Debug;
@@ -503,12 +505,15 @@
 		};
 		DCAB3C1D0E5BD2DA0030D000 /* Distribution */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Parlee";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "093283FB-ACFE-4306-A72E-10A3B958AF82";
 				SDKROOT = iphoneos2.2;
 			};
 			name = Distribution;
@@ -517,6 +522,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Parlee";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -531,6 +537,7 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "093283FB-ACFE-4306-A72E-10A3B958AF82";
 			};
 			name = Distribution;
 		};

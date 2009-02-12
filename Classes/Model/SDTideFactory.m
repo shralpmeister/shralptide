@@ -82,9 +82,31 @@
         [loopPool release];
     }
     
-    NSArray *tideEvents = [self populateTideEvents:stoptime];
+	NSArray *tideEvents = [self populateTideEvents:stoptime];
     
-    SDTide *tideObj = [[[SDTide alloc] initWithStartDate:startDate EndDate:endDate Events:tideEvents andIntervals:tideArray] autorelease];
+	NSMutableArray *filteredEvents = [[NSMutableArray alloc] initWithArray:tideEvents];
+	
+	NSMutableArray *pair = [[NSMutableArray alloc] init];
+	for (SDTideEvent *event in tideEvents) {
+		[pair addObject:event];
+		if ([pair count] == 2) {
+			int height1 = [[pair objectAtIndex:0] eventHeight] * 100;
+			int height2 = [[pair objectAtIndex:1] eventHeight] * 100;
+			
+			if (round(height1) == round(height2)) {
+				for (id object in pair) {
+					[filteredEvents removeObject: object];
+				}
+			}
+			[pair removeObjectAtIndex:0];
+		}
+	}
+	
+	[pair release];
+    
+    SDTide *tideObj = [[SDTide alloc] initWithStartDate:startDate EndDate:endDate Events:filteredEvents andIntervals:tideArray];
+	
+	[filteredEvents release];
 	
 	[tideArray release];
 	
