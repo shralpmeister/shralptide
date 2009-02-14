@@ -82,15 +82,6 @@
 	CGContextAddLineToPoint(context, xmax * xratio, yoffset);
 	CGContextStrokePath(context);
 	
-	
-//	CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, 1.0);
-//	CGContextSetLineWidth(context, 1);
-//	for (int i=0; i <= WIDTH; i += WIDTH / 4) {
-//		CGContextMoveToPoint(context, i, 0);
-//		CGContextAddLineToPoint(context, i, yoffset + 64);
-//		CGContextStrokePath(context);
-//	}
-					  
 	int basetime = 0;
 	for (SDTideInterval *tidePoint in [tide intervals]) {
 		int minutesSinceMidnight = 0;
@@ -111,13 +102,6 @@
 	
 	CGContextSetRGBFillColor(context, 0.0, 1.0, 1.0, 0.7);
 	CGContextFillPath(context);
-	
-//	float top = round(max * 10) / 10;
-//	CGContextMoveToPoint(context, 0, top + 64);
-//	CGContextAddLineToPoint(context, WIDTH, top + 64);
-//	CGContextStrokePath(context);
-//	
-//	[[NSString stringWithFormat:@"%0.1f", top] drawAtPoint:CGPointMake(10, top - 5) withFont:[UIFont fontWithName:@"Helvetica" size: 18.0]];
 	
 	cursorView.center = CGPointMake([self currentTimeInMinutes:tide] * xratio, (HEIGHT + 64) / 2);
 	
