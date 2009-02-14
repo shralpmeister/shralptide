@@ -1,5 +1,5 @@
     ShralpTide  a tide clock and tide predictor for mobile devices
-    Version 1.0.0
+    Version 1.0.1  02/14/09
 
     Copyright (C) 2009  Michael Parlee
 
@@ -130,3 +130,13 @@ Contact Info
 
 Mike Parlee
 shralpmeister@me.com
+
+Changelog
+---------
+
+1.0.1  02/14/09 - In certain circumstances tide stations with units of meters
+                  were showing an extra tide swing with equivalent high and 
+                  low values back to back. Each tide is now compared and those 
+                  with no significant difference (to 2 decimal pts) are 
+                  removed. 
+
