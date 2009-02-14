@@ -1,5 +1,42 @@
 <?xml version="1.0"?>
-<commits created="2009-02-11T22:16:09-08:00">
+<commits created="2009-02-14T01:16:03-08:00">
+<commit id="16d77f5e94d28bd027f072454c905e74ca2e5157">
+<date>Sat, 14 Feb 2009 00:47:57 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[Updated the with changes for 1.0.1 release.]]></subject><msg>
+<![CDATA[
+
+]]>
+</msg>
+</commit>
+<commit id="59a0037a15b27ee6ea1c2cdf242e1038fe96f608">
+<date>Sat, 14 Feb 2009 00:27:17 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[Version number updated for patch release on 1.0 branch.]]></subject><msg>
+<![CDATA[
+Also removed commented code from ChartView.m.  Still getting used to git.
+
+]]>
+</msg>
+</commit>
+<commit id="e540bb3a6550c4bc7ba5d1b4f0b7713062f47ead">
+<date>Thu, 12 Feb 2009 01:04:59 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[Bug fix for precision issues with meters and prelim work on chart view.]]></subject><msg>
+<![CDATA[
+
+]]>
+</msg>
+</commit>
+<commit id="0928ee386afb1305c10c719dfc56b7538ab1c4ed">
+<date>Wed, 11 Feb 2009 22:16:09 -0800</date>
+<author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
+<subject><![CDATA[Update changelog]]></subject><msg>
+<![CDATA[
+
+]]>
+</msg>
+</commit>
 <commit id="16d203deaab009e803b0bfc05aade897f73c6879">
 <date>Fri, 6 Feb 2009 23:30:11 -0800</date>
 <author><![CDATA[Michael Parlee]]></author><author-email><![CDATA[shralpmeister@me.com]]></author-email>
