@@ -21,14 +21,20 @@
    along with ShralpTide.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+@class SDStationOffset;
+
 @interface SDTideStation : NSObject {
 	NSString *name;
 	NSNumber *latitude;
 	NSNumber *longitude;
 	NSNumber *distance;
 	NSString *units;
+	NSString *displayName;
+	NSString *displayState;
+	SDStationOffset *stationOffset;
 }
 
-@property (retain, readwrite) NSString *name, *units;
+@property (retain, readwrite) NSString *name, *units, *displayName, *displayState;
 @property (retain, readwrite) NSNumber *distance, *latitude, *longitude;
+@property (retain, readwrite) SDStationOffset *stationOffset;
 @end

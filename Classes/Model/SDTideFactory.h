@@ -29,7 +29,8 @@
 @interface SDTideFactory : NSObject {
 }
 
-+(SDTide*)tideWithStart:(NSDate*)startDate End:(NSDate*)endDate andInterval:(int)interval atLocation:(NSString *)aLocation;
++(SDTideStation*)tideStationWithName:(NSString*)name;
++(SDTide*)tideWithStart:(NSDate*)startDate End:(NSDate*)endDate andInterval:(int)interval atStation:(SDTideStation *)station;
 +(NSArray*) populateTideEvents:(time_t) stoptime;
 +(NSArray*)locations;
 +(NSArray*)locationsNearLatitude:(double)latitude andLongitude:(double)longitude;

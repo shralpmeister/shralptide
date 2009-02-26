@@ -26,6 +26,7 @@
 #import "SDTideFactory.h"
 #import "SDTide.h"
 #import "SDTideEvent.h"
+#import "SDStationOffset.h"
 #import "RootViewController.h"
 
 @interface MainViewController (PrivateMethods)
@@ -56,10 +57,10 @@
  */
 - (void)viewDidLoad {
 	NSMutableArray *tempTable = [[NSMutableArray alloc] init];
-	[tempTable addObject: [NSArray arrayWithObjects: time1, height1, state1, nil]];
-	[tempTable addObject: [NSArray arrayWithObjects: time2, height2, state2, nil]];
-	[tempTable addObject: [NSArray arrayWithObjects: time3, height3, state3, nil]];
-	[tempTable addObject: [NSArray arrayWithObjects: time4, height4, state4, nil]];
+	[tempTable addObject: [NSArray arrayWithObjects: time1, height1, state1, bullet1, nil]];
+	[tempTable addObject: [NSArray arrayWithObjects: time2, height2, state2, bullet2, nil]];
+	[tempTable addObject: [NSArray arrayWithObjects: time3, height3, state3, bullet3, nil]];
+	[tempTable addObject: [NSArray arrayWithObjects: time4, height4, state4, bullet4, nil]];
 	
 	table = [tempTable retain];
 	[tempTable release];
@@ -84,7 +85,13 @@
 	[date setText: [formatter stringFromDate:[sdTide startTime]]];
 	[formatter release];
 	
-	[locationLabel setText:[sdTide shortLocationName]];
+	SDStationOffset *offset = [[sdTide tideStation] stationOffset];
+	if (offset != nil) {
+		[locationLabel setText:[offset shortRefStationName]];	
+		[correctionLabel setText:[NSString stringWithFormat:@"Events corrected for %@", [sdTide shortLocationName]]];
+	} else {
+		[locationLabel setText:[sdTide shortLocationName]];
+	}
 	
 	int minutesSinceMidnight = [self currentTimeInMinutes:sdTide];
 	if (minutesSinceMidnight > 0) {
@@ -125,13 +132,26 @@
 	} else {
 		[tideStateImage setImage:nil];
 	}
+	
+	NSNumber *nextEventIndex = [sdTide nextEventIndex];
+	int index = 0;
+	for (SDTideEvent *event in [sdTide events]) {
+		if (nextEventIndex != nil && index == [nextEventIndex intValue]) {
+			[[[table objectAtIndex:index] objectAtIndex:3] setHidden:NO];
+		} else {
+			[[[table objectAtIndex:index] objectAtIndex:3] setHidden:YES];
+		}
+		++index;
+	}
 }
 
 -(void)clearTable {
+	[correctionLabel setText:@""];
 	for (NSArray *row in table) {
 		[[row objectAtIndex:0] setText: @""];
 		[[row objectAtIndex:1] setText: @""];
 		[[row objectAtIndex:2] setText: @""];
+		[[row objectAtIndex:3] setHidden:YES];
 	}
 }
 

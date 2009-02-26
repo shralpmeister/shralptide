@@ -24,15 +24,17 @@
 #import "SDTide.h"
 #import "SDTideInterval.h"
 #import "SDTideEvent.h"
+#import "SDStationOffset.h"
 
 @interface SDTide(PrivateMethods)
 -(int)findPreviousInterval:(int) minutesFromMidnight;
 -(int)findNearestInterval:(int) minutesFromMidnight;
+-(void)applyEventCorrections;
 @end
 
 @implementation SDTide
 
--(id)initWithStartDate:(NSDate*)start EndDate:(NSDate*)end Events:(NSArray*)tideEvents andIntervals:(NSArray*)tideIntervals
+-(id)initWithTideStation:(SDTideStation *)station StartDate: (NSDate*)start EndDate:(NSDate*)end Events:(NSArray*)tideEvents andIntervals:(NSArray*)tideIntervals
 {
     if (![super init]) {
         return nil;
@@ -45,12 +47,42 @@
     stopTime = [end retain];
     intervals = [tideIntervals retain];
     events = [tideEvents retain];
+	self.tideStation = station;
+	
+	if (tideStation.stationOffset != nil) {
+		[self applyEventCorrections];
+	}
     
     return self;
 }
 
+-(void)applyEventCorrections
+{
+	SDStationOffset *offset = [[self tideStation] stationOffset];
+	for (SDTideEvent *event in events) {
+		NSDate *time = [event eventTime];
+		switch ([event eventType]) {
+			case SDTideStateHightTide: 
+				// add high minutes to event time
+				[event setEventTime:[time addTimeInterval: [offset highTideMinutesOffset] * 60]];
+				// multiply high by correction factor
+				float correctedHi = [event eventHeight] * [offset highTideHeightCorrection];
+				[event setEventHeight:correctedHi];
+				break;
+			case SDTideStateLowTide: 
+				// add low min to event time
+				[event setEventTime: [time addTimeInterval: [offset lowTideMinutesOffset] * 60]];
+				// multiply low by correction factor
+				float correctedLo = [event eventHeight] * [offset lowTideHeightCorrection];
+				[event setEventHeight:correctedLo];
+				break;
+		}
+	}
+}
+
 -(NSString*)shortLocationName {
-	NSArray *parts = [location componentsSeparatedByString:@","];
+	NSString *name = [tideStation name];
+	NSArray *parts = [name componentsSeparatedByString:@","];
 	return [parts objectAtIndex:0];
 }
 
@@ -87,6 +119,18 @@
 	return height;
 }
 
+-(NSNumber*)nextEventIndex
+{
+	int count = 0;
+	for (SDTideEvent *event in events) {
+		if ([[NSDate date] timeIntervalSince1970] < [[event eventTime] timeIntervalSince1970]) {
+			return [NSNumber numberWithInt:count];
+		}
+		++count;
+	}
+	return nil;
+}
+
 #pragma mark PrivateMethods
 
 -(int)findPreviousInterval:(int) minutesFromMidnight {
@@ -109,7 +153,7 @@
     [stopTime release];
     [intervals release];
     [events release];
-	[location release];
+	[tideStation release];
 	[unitLong release];
 	[unitShort release];
     [super dealloc];
@@ -119,7 +163,7 @@
 @synthesize stopTime;
 @synthesize intervals;
 @synthesize events;
-@synthesize location;
+@synthesize tideStation;
 @synthesize unitLong;
 @synthesize unitShort;
 @end

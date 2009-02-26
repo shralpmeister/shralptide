@@ -56,6 +56,8 @@
     CLLocationManager *locationManager;
 	BOOL transitioning;
 	BOOL pageControlUsed;
+	BOOL acceptLocationUpdates;
+	SDTideStation *tideStation;
 }
 
 @property (nonatomic, retain) UIButton *infoButton;
@@ -73,6 +75,7 @@
 @property (nonatomic, retain) NSCalendar *currentCalendar;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) UILabel *waitReason;
+@property (nonatomic, retain) SDTideStation *tideStation;
 
 @property (readonly, getter=isTransitioning) BOOL transitioning;
 

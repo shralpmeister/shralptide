@@ -33,9 +33,11 @@
 		DC4F12F60ED9168600AD8A17 /* tidestations.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = DC4F12F50ED9168600AD8A17 /* tidestations.sqlite */; };
 		DC4F13450ED91F9400AD8A17 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4F133F0ED91F9400AD8A17 /* FMDatabaseAdditions.m */; };
 		DC4F13470ED91F9400AD8A17 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4F13420ED91F9400AD8A17 /* FMDatabase.m */; };
+		DC5B86D90F55192C00231523 /* bullet_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = DC5B86D80F55192C00231523 /* bullet_yellow.png */; };
 		DC8ED80C0F0D8C3B009EAF2F /* Decreasing.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8ED8080F0D8C3B009EAF2F /* Decreasing.png */; };
 		DC8ED80D0F0D8C3B009EAF2F /* Increasing.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8ED8090F0D8C3B009EAF2F /* Increasing.png */; };
 		DC8EDBB20F107814009EAF2F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8EDBB10F107814009EAF2F /* Default.png */; };
+		DC9B14A90F524BED006B89FD /* SDStationOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9B14A80F524BED006B89FD /* SDStationOffset.m */; };
 		DCA935600EDF722B0050113B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA9355F0EDF722B0050113B /* CoreLocation.framework */; };
 		DCA9379B0EE1B3910050113B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA9379A0EE1B3910050113B /* CoreGraphics.framework */; };
 		DCC7EB6A0F20622800E6904E /* CONTRIBUTORS.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB670F20622800E6904E /* CONTRIBUTORS.txt */; };
@@ -101,9 +103,12 @@
 		DC4F13410ED91F9400AD8A17 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = FMDB/FMDatabase.h; sourceTree = "<group>"; };
 		DC4F13420ED91F9400AD8A17 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = FMDB/FMDatabase.m; sourceTree = "<group>"; };
 		DC4F13430ED91F9400AD8A17 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = FMDB/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		DC5B86D80F55192C00231523 /* bullet_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bullet_yellow.png; path = Resources/bullet_yellow.png; sourceTree = "<group>"; };
 		DC8ED8080F0D8C3B009EAF2F /* Decreasing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Decreasing.png; path = Resources/Decreasing.png; sourceTree = "<group>"; };
 		DC8ED8090F0D8C3B009EAF2F /* Increasing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Increasing.png; path = Resources/Increasing.png; sourceTree = "<group>"; };
 		DC8EDBB10F107814009EAF2F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
+		DC9B14A70F524BED006B89FD /* SDStationOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDStationOffset.h; path = Classes/Model/SDStationOffset.h; sourceTree = "<group>"; };
+		DC9B14A80F524BED006B89FD /* SDStationOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDStationOffset.m; path = Classes/Model/SDStationOffset.m; sourceTree = "<group>"; };
 		DCA9355F0EDF722B0050113B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DCA9379A0EE1B3910050113B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DCC7EB670F20622800E6904E /* CONTRIBUTORS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CONTRIBUTORS.txt; path = FMDB/CONTRIBUTORS.txt; sourceTree = "<group>"; };
@@ -221,6 +226,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DC5B86D80F55192C00231523 /* bullet_yellow.png */,
 				DC2975DC0F2BDBF3000D0E7E /* location_icon.png */,
 				DC2975DD0F2BDBF4000D0E7E /* world_icon.png */,
 				DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */,
@@ -314,6 +320,8 @@
 				DCFD59460E39A93D00B7B1B8 /* SDTideEvent.m */,
 				DC328D100EE30652004F45C4 /* SDTideStation.h */,
 				DC328D110EE30652004F45C4 /* SDTideStation.m */,
+				DC9B14A70F524BED006B89FD /* SDStationOffset.h */,
+				DC9B14A80F524BED006B89FD /* SDStationOffset.m */,
 			);
 			name = objctidelib;
 			sourceTree = "<group>";
@@ -385,6 +393,7 @@
 				DC493E5D0F206C8B0087B341 /* COPYING in Resources */,
 				DC2975DE0F2BDBF4000D0E7E /* location_icon.png in Resources */,
 				DC2975DF0F2BDBF4000D0E7E /* world_icon.png in Resources */,
+				DC5B86D90F55192C00231523 /* bullet_yellow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +427,7 @@
 				DC328D120EE30652004F45C4 /* SDTideStation.m in Sources */,
 				DCE897DB0EEE3CAE00BF2357 /* CursorView.m in Sources */,
 				DCCAD90E0F1DBC4600141002 /* FMResultSet.m in Sources */,
+				DC9B14A90F524BED006B89FD /* SDStationOffset.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +438,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -448,6 +459,8 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D465FCAA-FFB5-44A7-A0B4-A979106139DB";
+				SDKROOT = iphoneos2.2;
 				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = "-Wl,-M";
 			};
@@ -486,7 +499,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D465FCAA-FFB5-44A7-A0B4-A979106139DB";
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos2.2.1;
 			};
 			name = Debug;
 		};
@@ -538,6 +551,7 @@
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "093283FB-ACFE-4306-A72E-10A3B958AF82";
+				SDKROOT = iphoneos2.2;
 			};
 			name = Distribution;
 		};

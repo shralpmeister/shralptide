@@ -40,10 +40,10 @@
 - (void)loadScrollViewWithPage:(int)page;
 - (void)scrollViewDidScroll:(UIScrollView *)sender;
 - (void)createMainViews;
--(void)startWaitIndicator;
--(void)stopWaitIndicator;
+- (void)startWaitIndicator;
+- (void)stopWaitIndicator;
 - (void)saveState;
--(NSString*)lastLocation;
+- (NSString*)lastLocation;
 - (BOOL)writeApplicationPlist:(id)plist toFile:(NSString *)fileName;
 - (id)applicationPlistFromFile:(NSString *)fileName;
 - (BOOL)writeApplicationData:(NSData *)data toFile:(NSString *)fileName;
@@ -72,13 +72,17 @@ static NSUInteger kNumberOfPages = 5;
 @synthesize locationManager;
 @synthesize waitReason;
 @synthesize transitioning;
+@synthesize tideStation;
 
 - (void)viewDidLoad {
 	NSString *lastLocation = [self lastLocation];
 	if (lastLocation) {
 		[self setLocation:lastLocation];
+		self.tideStation = [SDTideFactory tideStationWithName:lastLocation];
 	} else {
-		[self setLocation:@"La Jolla, Scripps Pier, California"];
+		NSString *defaultLocation = @"La Jolla, Scripps Pier, California";
+		[self setLocation:defaultLocation];
+		self.tideStation = [SDTideFactory tideStationWithName:defaultLocation];
 	}
 	self.currentCalendar = [NSCalendar currentCalendar];
 	
@@ -121,7 +125,11 @@ static NSUInteger kNumberOfPages = 5;
 	}
 	
 	MainViewController *pageOneController = [viewControllers objectAtIndex:0];
-	[pageOneController updatePresentTideInfo];
+	if ([[NSDate date] timeIntervalSinceDate: [[pageOneController sdTide] startTime]] > 86400) {
+		[self viewDidAppear:YES];
+	} else {
+		[pageOneController updatePresentTideInfo];
+	}
 }
 
 - (void)recalculateTides:(id)object {
@@ -303,11 +311,14 @@ static NSUInteger kNumberOfPages = 5;
 }
 
 -(void)chooseFromNearbyTideStations {
+	[self startWaitIndicator];
+	[waitReason setText:@"Determining current location."];
+
 	self.locationManager = [[CLLocationManager alloc] init];
 	self.locationManager.delegate = self; // Tells the location manager to send updates to this object
 	
-	[self startWaitIndicator];
-	[waitReason setText:@"Determining current location."];
+	acceptLocationUpdates = YES;
+	
 	[locationManager startUpdatingLocation];
 }
 
@@ -321,7 +332,6 @@ static NSUInteger kNumberOfPages = 5;
 		CLLocation *stationLoc = [[CLLocation alloc] initWithLatitude:[station.latitude doubleValue]
 															longitude:[station.longitude doubleValue]];
 		station.distance = [NSNumber numberWithDouble:([newLocation getDistanceFrom:stationLoc] / 1000)];
-		station.units = @"km";
 		[stationLoc release];
 	}
 	
@@ -475,6 +485,7 @@ static NSUInteger kNumberOfPages = 5;
 	[allLocations release];
 	[nearbyLocations release];
 	[locationManager release];
+	[tideStation release];
 	[super dealloc];
 }
 
@@ -509,7 +520,7 @@ static NSUInteger kNumberOfPages = 5;
 	SDTide *result = [SDTideFactory tideWithStart:start 
 									   End:end 
 							   andInterval:900 
-								atLocation:location];
+								atStation:tideStation];
 	
 	return result;
 }
@@ -606,37 +617,45 @@ static NSUInteger kNumberOfPages = 5;
 		CGRect frame = CGRectMake(0, 0, 300, 60);
         cell = [[[UITableViewCell alloc] initWithFrame:frame reuseIdentifier:@"TideStationCell"] autorelease];
 
-		name = [[[UILabel alloc] initWithFrame:CGRectMake(5.0, 5.0, 300.0, 15.0)] autorelease];
+		name = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, 300.0, 23.0)] autorelease];
 		name.tag = 1;
-		name.font = [UIFont systemFontOfSize:14.0];
+		name.font = [UIFont boldSystemFontOfSize:20.0];
+		name.adjustsFontSizeToFitWidth = YES;
 		name.textAlignment = UITextAlignmentLeft;
 		name.textColor = [UIColor blackColor];
 		name.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleHeight;
-		[cell.contentView addSubview:name];
 		
-		distance = [[[UILabel alloc] initWithFrame:CGRectMake(5.0, 30.0, 200.0, 12.0)] autorelease];
+		distance = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, 28.0, 200.0, 16.0)] autorelease];
 		distance.tag = 2;
-		distance.font = [UIFont systemFontOfSize:12.0];
-		distance.textColor = [UIColor grayColor];
+		distance.font = [UIFont systemFontOfSize:14.0];
+		distance.textColor = [UIColor blackColor];
 		distance.lineBreakMode = UILineBreakModeWordWrap;
 		distance.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[cell.contentView addSubview:distance];
+		
+		[cell.contentView addSubview:name];
 		
     } else {
 		name = (UILabel *)[cell.contentView viewWithTag:1];
 		distance = (UILabel *)[cell.contentView viewWithTag:2];
 	}
     SDTideStation *station = [filteredLocations objectAtIndex:indexPath.row];
-    name.text = station.name;
+    name.text = station.displayName;
 	
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	[formatter setMaximumFractionDigits:1];
 	
 	if (station.distance != nil) {
-		distance.text = [NSString stringWithFormat: @"%@ %@", [formatter stringFromNumber:station.distance], station.units];
+		if (![station.units isEqualToString:@"meters"]) {
+			float distanceMiles = [station.distance floatValue] * 0.62137119;
+			NSNumber *milesNumber = [NSNumber numberWithFloat:distanceMiles];
+			distance.text = [NSString stringWithFormat: @"%@ (%@ mi)", station.displayState, [formatter stringFromNumber:milesNumber]];	
+		} else {
+			distance.text = [NSString stringWithFormat: @"%@ (%@ km)", station.displayState, [formatter stringFromNumber:station.distance]];		
+		}
 	} else {
-		distance.text = @"";
+		distance.text = [NSString stringWithFormat: @"%@", station.displayState];
 	}
 	
 	[formatter release];
@@ -653,7 +672,9 @@ static NSUInteger kNumberOfPages = 5;
     if ([searchBar isFirstResponder])
         [searchBar resignFirstResponder];
 	
-	[self setLocation: [[filteredLocations objectAtIndex:indexPath.row] name]];
+	self.tideStation = [filteredLocations objectAtIndex:indexPath.row];
+	
+	[self setLocation: [tideStation name]];
 	[self saveState];
 	[self toggleView];
 }
@@ -725,6 +746,9 @@ static NSUInteger kNumberOfPages = 5;
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation
 {
+	if (!acceptLocationUpdates) {
+		return;
+	}
 	NSLog(@"Location determined: %0.4f,%0.4f", newLocation.coordinate.latitude, newLocation.coordinate.longitude);
 	NSLog(@"at time: %@, current time is: %@", newLocation.timestamp, [NSDate date]);
 	
@@ -733,6 +757,7 @@ static NSUInteger kNumberOfPages = 5;
 		return;
 	} else {
 		// now that we have a fresh location we can stop updating and get on with the show
+		acceptLocationUpdates = NO;
 		[self stopWaitIndicator];
 		[manager stopUpdatingLocation];
 	}

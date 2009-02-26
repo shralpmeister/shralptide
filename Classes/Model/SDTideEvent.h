@@ -41,7 +41,7 @@ typedef NSUInteger SDTideState;
 -(NSString *)eventTypeDescription;
 -(NSString *)eventTimeString12HR;
 -(NSString *)eventTimeString24HR;
-@property (readonly) NSDate *eventTime;
+@property (retain,readwrite) NSDate *eventTime;
 @property (readonly) SDTideState eventType;
-@property (readonly) float eventHeight;
+@property (readwrite) float eventHeight;
 @end

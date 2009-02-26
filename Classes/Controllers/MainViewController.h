@@ -34,20 +34,20 @@
 	IBOutlet UILabel *time2;
 	IBOutlet UILabel *time3;
 	IBOutlet UILabel *time4;
-	IBOutlet UILabel *time5;
-	IBOutlet UILabel *time6;
 	IBOutlet UILabel *height1;
 	IBOutlet UILabel *height2;
 	IBOutlet UILabel *height3;
 	IBOutlet UILabel *height4;
-	IBOutlet UILabel *height5;
-	IBOutlet UILabel *height6;
 	IBOutlet UILabel *state1;
 	IBOutlet UILabel *state2;
 	IBOutlet UILabel *state3;
 	IBOutlet UILabel *state4;
-	IBOutlet UILabel *state5;
-	IBOutlet UILabel *state6;
+	IBOutlet UIImageView *bullet1;
+	IBOutlet UIImageView *bullet2;
+	IBOutlet UIImageView *bullet3;
+	IBOutlet UIImageView *bullet4;
+
+	IBOutlet UILabel *correctionLabel;
 	
 	NSArray *table;
 	int pageNumber;
