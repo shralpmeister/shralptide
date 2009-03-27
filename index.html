@@ -10,25 +10,29 @@
 	<style type="text/css">
 		body {
   		margin-top: 1.0em;
-  		background-color: #11b689;
+  		background-color: #ffffff;
 		  font-family: "helvetica"; 
-  		color: #ffffff;
+  		color: #0B0B0B;
     }
     #container {
       margin: 0 auto;
       width: 700px;
     }
-		h1 { font-size: 3.8em; color: #ee4976; margin-bottom: 3px; }
+		h1 { font-size: 3.8em; color: #154d98; margin-bottom: 3px; }
 		h1 .small { font-size: 0.4em; }
 		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #ee4976; }
-    h3 { text-align: center; color: #ee4976; }
-    a { color: #ee4976; }
+		h2 { font-size: 1.5em; color: #154d98; }
+    h3 { text-align: center; color: #154d98; }
+    a { color: #154d98; }
     .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
     .download { float: right; }
 		pre { background: #000; color: #fff; padding: 15px;}
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
+	.license {
+		margin-left: 5%;
+		margin-right: 5%;
+	}
 	</style>
 	
 </head>
@@ -54,47 +58,42 @@
 
     <p>ShralpTide provides a reduced feature set of the excellent Unix
 command line tide tool, XTide, in a format accessible to the casual
-beach goer on the iPhone mobile platform.
-</p><h2>Install</h2>
-<p>To build ShralpTide from source an Intel based machine running Mac OS X 10.5 and the iPhone SDK is required. The iPhone SDK is available as a free download from Apple's developer web site, http://developer.apple.com/iphone. The SDK alone will be enough to build and deploy to an iPhone simulator. Additional steps are needed to deploy on the iPhone itself. See Apple's website and do some searching on the internet for available deployment options.
+beach goer on the iPhone mobile platform.</p>
+<h2>Install</h2>
+<p>To build ShralpTide from source an Intel based machine running Mac OS X 10.5 and the iPhone SDK is required. The iPhone SDK is available as a free download from Apple's developer web site, <a href="http://developer.apple.com/iphone">http://developer.apple.com/iphone</a>. The SDK alone will be enough to build and deploy to an iPhone simulator. Additional steps are needed to deploy on the iPhone itself. See Apple's website and do some searching on the internet for available deployment options.</p>
 
-Download the source code from Github at
-http://github.com/shralpmeister/shralptide.
+<p>Download the source code from Github at <a href="http://github.com/shralpmeister/shralptide">
+http://github.com/shralpmeister/shralptide</a>.</p>
 
-The source is available in both zip and tar.gz formats or you can clone the git repository with the following command:
+<p>To build and run the project open the project, ShralpTide.xcodeproj, in XCode.</p>
 
-    git clone git://github.com/shralpmeister/shralptide.git
+<p>Select the "Debug - Simulator" build configuration. Click the build and run icon in the menu bar. The build will take a little while to finish. When finished it will launch the Simulator, install ShralpTide, and run it.</p>
 
-To build and run the project open the project, ShralpTide.xcodeproj, in XCode.
-
-Select the "Debug - Simulator" build configuration. Click the build and run icon in the menu bar. The build will take a little while to finish. When finished it will launch the Simulator, install ShralpTide, and run it.
-
-Repeat the same steps but with "Debug - Device" to install it on your development iPhone.
+<p>Repeat the same steps but with "Debug - Device" to install it on your development iPhone.
 </p>
 <h2>License</h2>
-<p>    ShralpTide  a tide clock and tide predictor for mobile devices
-    Version 1.0.0
+<div class="license">
+<p>ShralpTide - a tide clock and tide predictor for iPhone</p>
+<p>Version 1.1.1</p>
+<p>Copyright (C) 2009  Michael Parlee</p>
+<p>This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.</p>
 
-    Copyright (C) 2009  Michael Parlee
+<p>This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.</p>
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+<p>You should have received a copy of the GNU General Public License
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
+</div>
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-</p>
 <h2>Authors</h2>
-<p>Michael Parlee (shralpmeister@me.com)<br/><br/>      </p>
+<p>Michael Parlee (shralpmeister@me.com)</p>
 <h2>Contact</h2>
-<p> (shralpmeister@me.com)<br/>      </p>
+<p><a href="mailto:shralpmeister@me.com">shralpmeister@me.com</a></p>
 
 
     <h2>Download</h2>
