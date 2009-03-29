@@ -37,7 +37,6 @@
 		DC8ED80C0F0D8C3B009EAF2F /* Decreasing.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8ED8080F0D8C3B009EAF2F /* Decreasing.png */; };
 		DC8ED80D0F0D8C3B009EAF2F /* Increasing.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8ED8090F0D8C3B009EAF2F /* Increasing.png */; };
 		DC8EDBB20F107814009EAF2F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8EDBB10F107814009EAF2F /* Default.png */; };
-		DC9B14A90F524BED006B89FD /* SDStationOffset.m in Sources */ = {isa = PBXBuildFile; fileRef = DC9B14A80F524BED006B89FD /* SDStationOffset.m */; };
 		DCA935600EDF722B0050113B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA9355F0EDF722B0050113B /* CoreLocation.framework */; };
 		DCA9379B0EE1B3910050113B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA9379A0EE1B3910050113B /* CoreGraphics.framework */; };
 		DCC7EB6A0F20622800E6904E /* CONTRIBUTORS.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB670F20622800E6904E /* CONTRIBUTORS.txt */; };
@@ -107,8 +106,6 @@
 		DC8ED8080F0D8C3B009EAF2F /* Decreasing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Decreasing.png; path = Resources/Decreasing.png; sourceTree = "<group>"; };
 		DC8ED8090F0D8C3B009EAF2F /* Increasing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Increasing.png; path = Resources/Increasing.png; sourceTree = "<group>"; };
 		DC8EDBB10F107814009EAF2F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
-		DC9B14A70F524BED006B89FD /* SDStationOffset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDStationOffset.h; path = Classes/Model/SDStationOffset.h; sourceTree = "<group>"; };
-		DC9B14A80F524BED006B89FD /* SDStationOffset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDStationOffset.m; path = Classes/Model/SDStationOffset.m; sourceTree = "<group>"; };
 		DCA9355F0EDF722B0050113B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DCA9379A0EE1B3910050113B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DCC7EB670F20622800E6904E /* CONTRIBUTORS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CONTRIBUTORS.txt; path = FMDB/CONTRIBUTORS.txt; sourceTree = "<group>"; };
@@ -320,8 +317,6 @@
 				DCFD59460E39A93D00B7B1B8 /* SDTideEvent.m */,
 				DC328D100EE30652004F45C4 /* SDTideStation.h */,
 				DC328D110EE30652004F45C4 /* SDTideStation.m */,
-				DC9B14A70F524BED006B89FD /* SDStationOffset.h */,
-				DC9B14A80F524BED006B89FD /* SDStationOffset.m */,
 			);
 			name = objctidelib;
 			sourceTree = "<group>";
@@ -427,7 +422,6 @@
 				DC328D120EE30652004F45C4 /* SDTideStation.m in Sources */,
 				DCE897DB0EEE3CAE00BF2357 /* CursorView.m in Sources */,
 				DCCAD90E0F1DBC4600141002 /* FMResultSet.m in Sources */,
-				DC9B14A90F524BED006B89FD /* SDStationOffset.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,7 +432,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Parlee";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -459,7 +453,7 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D465FCAA-FFB5-44A7-A0B4-A979106139DB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "093283FB-ACFE-4306-A72E-10A3B958AF82";
 				SDKROOT = iphoneos2.2;
 				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = "-Wl,-M";

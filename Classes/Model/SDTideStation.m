@@ -32,7 +32,6 @@
 @synthesize longitude;
 @synthesize displayName;
 @synthesize displayState;
-@synthesize stationOffset;
 
 -(void)dealloc {
 	[name release];
@@ -42,7 +41,6 @@
 	[longitude release];
 	[displayName release];
 	[displayState release];
-	[stationOffset release];
 	[super dealloc];
 }
 

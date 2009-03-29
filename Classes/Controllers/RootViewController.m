@@ -50,6 +50,7 @@
 - (NSData *)applicationDataFromFile:(NSString *)fileName;
 - (void)replaceSubview:(UIView *)oldView withSubview:(UIView *)newView transition:(NSString *)transition direction:(NSString *)direction duration:(NSTimeInterval)duration;
 -(void)refreshLocationTable;
+-(void)setDefaultLocation;
 @end
 
 static NSUInteger kNumberOfPages = 5;
@@ -76,17 +77,29 @@ static NSUInteger kNumberOfPages = 5;
 
 - (void)viewDidLoad {
 	NSString *lastLocation = [self lastLocation];
+	
 	if (lastLocation) {
 		[self setLocation:lastLocation];
 		self.tideStation = [SDTideFactory tideStationWithName:lastLocation];
+		if (self.tideStation.name == nil) {
+			NSString *message = [NSString stringWithFormat:@"%@ is no longer a supported location. Please choose another location.",lastLocation];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+			[self setDefaultLocation];
+		}
 	} else {
-		NSString *defaultLocation = @"La Jolla, Scripps Pier, California";
-		[self setLocation:defaultLocation];
-		self.tideStation = [SDTideFactory tideStationWithName:defaultLocation];
+		[self setDefaultLocation];
 	}
 	self.currentCalendar = [NSCalendar currentCalendar];
 	
 	[self createMainViews];
+}
+
+- (void)setDefaultLocation {
+	NSString *defaultLocation = @"La Jolla, Scripps Pier, California";
+	[self setLocation:defaultLocation];
+	self.tideStation = [SDTideFactory tideStationWithName:defaultLocation];
 }
 
 - (void)createMainViews {
@@ -347,12 +360,20 @@ static NSUInteger kNumberOfPages = 5;
 	[nameDescriptor release];
 	
 	[self stopWaitIndicator];
+	
 	if (flipsideViewController) {
 		[self refreshLocationTable];
 	} else {
 		[self loadFlipsideViewController];
 	}
-	[self toggleView];
+	
+	if ([locations count] > 0) {
+		[self toggleView];
+	} else {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There are no tide stations in your area. You may select a location manually by pressing the globe icon." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	}
 }
 
 -(IBAction)chooseFromAllTideStations {
@@ -761,6 +782,15 @@ static NSUInteger kNumberOfPages = 5;
 		[self stopWaitIndicator];
 		[manager stopUpdatingLocation];
 	}
+	
+#if TARGET_IPHONE_SIMULATOR
+	[newLocation release];
+	//newLocation = [[CLLocation alloc] initWithLatitude:48.4500 longitude:-123.3000]; // victoria, bc
+	//newLocation = [[CLLocation alloc] initWithLatitude:-33.867707 longitude: 151.225777]; sydney, aus
+	//newLocation = [[CLLocation alloc] initWithLatitude:-36.846581 longitude: 174.77809]; // aukland, nz
+	//newLocation = [[CLLocation alloc] initWithLatitude:35.570922 longitude:140.331673]; // chiba, jp
+	newLocation = [[CLLocation alloc] initWithLatitude:41.855242 longitude:-87.618713]; // chicago, il
+#endif
 	
     if (signbit(newLocation.horizontalAccuracy)) {
         // Negative accuracy means an invalid or unavailable measurement
