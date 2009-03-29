@@ -24,12 +24,10 @@
 #import "SDTide.h"
 #import "SDTideInterval.h"
 #import "SDTideEvent.h"
-#import "SDStationOffset.h"
 
 @interface SDTide(PrivateMethods)
 -(int)findPreviousInterval:(int) minutesFromMidnight;
 -(int)findNearestInterval:(int) minutesFromMidnight;
--(void)applyEventCorrections;
 @end
 
 @implementation SDTide
@@ -48,36 +46,8 @@
     intervals = [tideIntervals retain];
     events = [tideEvents retain];
 	self.tideStation = station;
-	
-	if (tideStation.stationOffset != nil) {
-		[self applyEventCorrections];
-	}
     
     return self;
-}
-
--(void)applyEventCorrections
-{
-	SDStationOffset *offset = [[self tideStation] stationOffset];
-	for (SDTideEvent *event in events) {
-		NSDate *time = [event eventTime];
-		switch ([event eventType]) {
-			case SDTideStateHightTide: 
-				// add high minutes to event time
-				[event setEventTime:[time addTimeInterval: [offset highTideMinutesOffset] * 60]];
-				// multiply high by correction factor
-				float correctedHi = [event eventHeight] * [offset highTideHeightCorrection];
-				[event setEventHeight:correctedHi];
-				break;
-			case SDTideStateLowTide: 
-				// add low min to event time
-				[event setEventTime: [time addTimeInterval: [offset lowTideMinutesOffset] * 60]];
-				// multiply low by correction factor
-				float correctedLo = [event eventHeight] * [offset lowTideHeightCorrection];
-				[event setEventHeight:correctedLo];
-				break;
-		}
-	}
 }
 
 -(NSString*)shortLocationName {

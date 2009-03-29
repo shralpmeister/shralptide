@@ -24,7 +24,6 @@
 #import "SDTideFactory.h"
 #include "everythi.h"
 #import "SDTideStation.h"
-#import "SDStationOffset.h"
 
 @interface SDTideFactory (PrivateMethods)
 +(void)mapTideStation:(SDTideStation*)station fromResultSet:(FMResultSet*)rs;
@@ -40,12 +39,7 @@
     char cEnd[30];
     time_t stoptime = 0;
     
-	NSString *stationName = nil;
-	if (station.stationOffset) {
-		stationName = station.stationOffset.referenceStationName;
-	} else {
-		stationName = station.name;
-	}
+	NSString *stationName = station.name;
 
     //strcpy(location,[stationName cStringUsingEncoding:NSISOLatin2StringEncoding]);
 	strcpy(location, [stationName cStringUsingEncoding:NSISOLatin1StringEncoding]);
@@ -214,7 +208,7 @@
         NSLog(@"Could not open db.");
     }
 	
-	FMResultSet *rs = [db executeQuery:@"select s.name, s.unit, s.lat, s.long, s.disp_name, s.disp_state, o.high_minutes, o.low_minutes, o.high_const, o.low_const, rs.name as ref_station_name from station s left outer join station_offset o on s.offset_id = o.offset_id left outer join station rs on o.ref_station_id = rs.id"];
+	FMResultSet *rs = [db executeQuery:@"select s.name, s.unit, s.lat, s.long, s.disp_name, s.disp_state from station s"];
 
 	if ([db hadError]) {
 		NSLog(@"Err %d: %@", [db lastErrorCode], [db lastErrorMessage]);
@@ -247,7 +241,7 @@
         NSLog(@"Could not open db.");
     }
 	
-	FMResultSet *rs = [db executeQuery:@"select s.name, s.unit, s.lat, s.long, s.disp_name, s.disp_state, o.high_minutes, o.low_minutes, o.high_const, o.low_const, rs.name as ref_station_name from station s left outer join station_offset o on s.offset_id = o.offset_id left outer join station rs on o.ref_station_id = rs.id where s.lat between ? and ? and s.long between ? and ?",
+	FMResultSet *rs = [db executeQuery:@"select s.name, s.unit, s.lat, s.long, s.disp_name, s.disp_state from station s where s.lat between ? and ? and s.long between ? and ?",
 		 minLatitude, 
 		 maxLatitude, 
 		 minLongitude,
@@ -276,7 +270,7 @@
         NSLog(@"Could not open db.");
     }
 	
-	FMResultSet *rs = [db executeQuery:@"select s.name, s.unit, s.lat, s.long, s.disp_name, s.disp_state, o.high_minutes, o.low_minutes, o.high_const, o.low_const, rs.name as ref_station_name from station s left outer join station_offset o on s.offset_id = o.offset_id left outer join station rs on o.ref_station_id = rs.id where s.name =  ?", name];
+	FMResultSet *rs = [db executeQuery:@"select s.name, s.unit, s.lat, s.long, s.disp_name, s.disp_state from station s where s.name =  ?", name];
 	
 	[rs next];
 	
@@ -297,19 +291,6 @@
 	station.displayName = [rs stringForColumn:@"disp_name"];
 	station.displayState = [rs stringForColumn:@"disp_state"];
 	station.units = [rs stringForColumn:@"unit"];
-	
-	NSString* refStationName = [rs stringForColumn:@"ref_station_name"];
-
-	if (refStationName != nil) {
-		int hiMinutes = [rs intForColumn:@"high_minutes"];
-		int loMinutes = [rs intForColumn:@"low_minutes"];
-		float highCorrection = [rs doubleForColumn:@"high_const"];
-		float lowCorrection = [rs doubleForColumn:@"low_const"];
-		
-		SDStationOffset *offset = [[SDStationOffset alloc] initWithStation:refStationName deltaHighMinutes:hiMinutes deltaLow:loMinutes highCorrection:highCorrection lowCorrection:lowCorrection];
-		station.stationOffset = offset;
-		[offset release];
-	}
 }
 
 @end

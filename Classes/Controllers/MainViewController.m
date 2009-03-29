@@ -26,7 +26,6 @@
 #import "SDTideFactory.h"
 #import "SDTide.h"
 #import "SDTideEvent.h"
-#import "SDStationOffset.h"
 #import "RootViewController.h"
 
 @interface MainViewController (PrivateMethods)
@@ -85,19 +84,19 @@
 	[date setText: [formatter stringFromDate:[sdTide startTime]]];
 	[formatter release];
 	
-	SDStationOffset *offset = [[sdTide tideStation] stationOffset];
-	if (offset != nil) {
-		[locationLabel setText:[offset shortRefStationName]];	
-		[correctionLabel setText:[NSString stringWithFormat:@"Events corrected for %@", [sdTide shortLocationName]]];
-	} else {
-		[locationLabel setText:[sdTide shortLocationName]];
-	}
+	[locationLabel setText:[sdTide shortLocationName]];
 	
 	int minutesSinceMidnight = [self currentTimeInMinutes:sdTide];
 	if (minutesSinceMidnight > 0) {
 		[self updatePresentTideInfo];
 	} else {
 		[presentHeight setText:@""];
+	}
+	
+	if ([[sdTide events] count] > 4) {
+		// there shouldn't be more than 4 tide events in a day -- 2 high, 2 low
+		[correctionLabel setText:@"Too many events predicted"];
+		return nil;
 	}
 	 
 	int index = 0;
