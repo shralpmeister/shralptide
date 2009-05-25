@@ -43,7 +43,6 @@
 		DCC7EB6B0F20622800E6904E /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB680F20622800E6904E /* LICENSE.txt */; };
 		DCC7EB6C0F20622800E6904E /* CHANGES_AND_TODO_LIST.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB690F20622800E6904E /* CHANGES_AND_TODO_LIST.txt */; };
 		DCCAD90E0F1DBC4600141002 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCAD90D0F1DBC4600141002 /* FMResultSet.m */; };
-		DCCAD9320F1DD25E00141002 /* DeveloperSettings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */; };
 		DCE897DB0EEE3CAE00BF2357 /* CursorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE897DA0EEE3CAE00BF2357 /* CursorView.m */; };
 		DCE898A20EEE514900BF2357 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCE898A10EEE514900BF2357 /* QuartzCore.framework */; };
 		DCFD59470E39A93D00B7B1B8 /* SDTide.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFD593F0E39A93D00B7B1B8 /* SDTide.m */; };
@@ -112,7 +111,6 @@
 		DCC7EB680F20622800E6904E /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = FMDB/LICENSE.txt; sourceTree = "<group>"; };
 		DCC7EB690F20622800E6904E /* CHANGES_AND_TODO_LIST.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CHANGES_AND_TODO_LIST.txt; path = FMDB/CHANGES_AND_TODO_LIST.txt; sourceTree = "<group>"; };
 		DCCAD90D0F1DBC4600141002 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = FMDB/FMResultSet.m; sourceTree = "<group>"; };
-		DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DeveloperSettings.xcconfig; sourceTree = "<group>"; };
 		DCE897D90EEE3CAE00BF2357 /* CursorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CursorView.h; path = Classes/Views/CursorView.h; sourceTree = "<group>"; };
 		DCE897DA0EEE3CAE00BF2357 /* CursorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CursorView.m; path = Classes/Views/CursorView.m; sourceTree = "<group>"; };
 		DCE898A10EEE514900BF2357 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -203,7 +201,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */,
 				DC493E5C0F206C8B0087B341 /* COPYING */,
 			);
 			name = CustomTemplate;
@@ -381,7 +378,6 @@
 				DC8EDBB20F107814009EAF2F /* Default.png in Resources */,
 				DC2E8CDB0F188BFB00DCA0A7 /* HomeScreenIcon.png in Resources */,
 				DC2E8CDD0F188C2100DCA0A7 /* link_arrow.png in Resources */,
-				DCCAD9320F1DD25E00141002 /* DeveloperSettings.xcconfig in Resources */,
 				DCC7EB6A0F20622800E6904E /* CONTRIBUTORS.txt in Resources */,
 				DCC7EB6B0F20622800E6904E /* LICENSE.txt in Resources */,
 				DCC7EB6C0F20622800E6904E /* CHANGES_AND_TODO_LIST.txt in Resources */,
@@ -483,16 +479,15 @@
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D465FCAA-FFB5-44A7-A0B4-A979106139DB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = Debug;
@@ -512,7 +507,6 @@
 		};
 		DCAB3C1D0E5BD2DA0030D000 /* Distribution */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Parlee";
