@@ -24,10 +24,13 @@
 #import "ChartView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface ChartView (PrivateMethods)
+@interface ChartView ()
 - (float)findLowestTide:(SDTide *)tide;
 - (float)findHighestTide:(SDTide *)tide;
 - (void)showTideForPoint:(CGPoint) point;
+- (void)hideTideDetails;
+- (NSDate*)midnight;
+- (NSString*)timeInNativeFormatFromMinutes:(int)minutesSinceMidnight;
 - (NSString*)timeIn24HourFormatFromMinutes:(int)minutesSinceMidnight;
 @end
 
@@ -36,15 +39,12 @@
 @synthesize datasource;
 @synthesize cursorView;
 @synthesize navBarView;
+@synthesize activityIndicator;
+@synthesize times;
 
 - (id)initWithCoder:(NSCoder *)coder {
 	if (self = [super initWithCoder:coder]) {
-    }
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+		times = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -54,9 +54,9 @@
 #define WIDTH 480
 #define MINUTES_FROM_MIDNIGHT 1440
 #define SECONDS_PER_MINUTE 60
-	
+
 	CGContextRef context = UIGraphicsGetCurrentContext();
-	
+					  
 	SDTide *tide = [datasource tideDataToChart];
 	
 	// Drawing with a white stroke color
@@ -81,15 +81,6 @@
 	CGContextMoveToPoint(context, xmin, yoffset);
 	CGContextAddLineToPoint(context, xmax * xratio, yoffset);
 	CGContextStrokePath(context);
-	
-	
-//	CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, 1.0);
-//	CGContextSetLineWidth(context, 1);
-//	for (int i=0; i <= WIDTH; i += WIDTH / 4) {
-//		CGContextMoveToPoint(context, i, 0);
-//		CGContextAddLineToPoint(context, i, yoffset + 64);
-//		CGContextStrokePath(context);
-//	}
 					  
 	int basetime = 0;
 	for (SDTideInterval *tidePoint in [tide intervals]) {
@@ -111,20 +102,17 @@
 	
 	CGContextSetRGBFillColor(context, 0.0, 1.0, 1.0, 0.7);
 	CGContextFillPath(context);
-	
-//	float top = round(max * 10) / 10;
-//	CGContextMoveToPoint(context, 0, top + 64);
-//	CGContextAddLineToPoint(context, WIDTH, top + 64);
-//	CGContextStrokePath(context);
-//	
-//	[[NSString stringWithFormat:@"%0.1f", top] drawAtPoint:CGPointMake(10, top - 5) withFont:[UIFont fontWithName:@"Helvetica" size: 18.0]];
-	
+			
 	cursorView.center = CGPointMake([self currentTimeInMinutes:tide] * xratio, (HEIGHT + 64) / 2);
-	
-	NSLog(@"min: %0.1f, max: %0.1f",min,max);
-	[self addSubview:cursorView];
-	[self insertSubview:cursorView belowSubview: navBarView];
-	[self showTideForPoint:[tide nearestDataPointForTime:floor(cursorView.center.x / xratio)]];
+	if (cursorView.center.x > 0) {
+		NSLog(@"min: %0.1f, max: %0.1f",min,max);
+		[self addSubview:cursorView];
+		[self insertSubview:cursorView belowSubview: navBarView];
+		[self showTideForPoint:[tide nearestDataPointForTime:floor(cursorView.center.x / xratio)]];	
+	} else {
+		[self hideTideDetails];
+	}
+
 
 	NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 	[formatter setDateStyle:NSDateFormatterFullStyle];
@@ -133,25 +121,59 @@
 }
 
 -(void)showTideForPoint:(CGPoint) point {
-	[[[self.navBarView items] objectAtIndex:0] setTitle:[NSString stringWithFormat:@"%0.2f%@ @ %@",point.y, [[datasource tideDataToChart] unitShort], [self timeIn24HourFormatFromMinutes: (int)point.x]]];
+	[[[self.navBarView items] objectAtIndex:0] setTitle:[NSString stringWithFormat:@"%0.2f%@ @ %@",point.y, [[datasource tideDataToChart] unitShort], [self timeInNativeFormatFromMinutes: (int)point.x]]];
 }
 
+-(void)hideTideDetails
+{
+	[[[self.navBarView items] objectAtIndex:0] setTitle:@""];	
+}
+
+- (NSDate*)midnight {
+	NSCalendar *gregorian = [NSCalendar currentCalendar];
+	unsigned unitflags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
+	NSDateComponents *components = [gregorian components: unitflags fromDate: [NSDate date]];
+	
+	return [gregorian dateFromComponents:components];
+}
+	
 
 - (int)currentTimeInMinutes:(SDTide *)tide {
 	// The following shows the current time on the tide chart.  Need to make sure that it only shows on 
 	// the current day!
 	NSDate *datestamp = [NSDate date];
-	
-	NSCalendar *gregorian = [NSCalendar currentCalendar];
-	unsigned unitflags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit;
-	NSDateComponents *components = [gregorian components: unitflags fromDate: datestamp];
-	
-	NSDate *midnight = [gregorian dateFromComponents:components];
+	NSDate *midnight = [self midnight];
 	
 	if ([midnight compare:[tide startTime]] == NSOrderedSame) {
 		return ([datestamp timeIntervalSince1970] - [midnight timeIntervalSince1970]) / SECONDS_PER_MINUTE;
 	} else {
 		return -1;
+	}
+}
+
+- (NSString*)timeInNativeFormatFromMinutes:(int)minutesSinceMidnight {
+	NSString* key = [NSString stringWithFormat:@"%d",minutesSinceMidnight];
+	if ([self.times objectForKey:key] != nil) {
+		return [self.times objectForKey:key];
+	} else {
+		int hours = minutesSinceMidnight / 60;
+		int minutes = minutesSinceMidnight % 60;
+		
+		NSCalendar *gregorian = [NSCalendar currentCalendar];
+		NSDateComponents *components = [[NSDateComponents alloc] init];
+		[components setHour:hours];
+		[components setMinute:minutes];
+		
+		NSDate *time = [gregorian dateByAddingComponents:components toDate:[self midnight] options:0];
+		[components release];
+		
+		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+		[formatter setTimeStyle:NSDateFormatterShortStyle];
+		NSString *timeString = [formatter stringFromDate:time];
+		[formatter release];
+		
+		[self.times setObject:timeString forKey:key];
+		return timeString;
 	}
 }
 
@@ -181,6 +203,7 @@
 
 - (void)dealloc {
 	[cursorView release];
+	[times release];
     [super dealloc];
 }
 
@@ -193,6 +216,12 @@
     // Animate the first touch
     CGPoint touchPoint = [touch locationInView:self];
 	CGPoint movePoint = CGPointMake(touchPoint.x, 150);
+	
+	if (cursorView.superview == nil) {
+		[self addSubview:cursorView];
+		[self insertSubview:cursorView belowSubview: navBarView];
+	}
+	
     [self animateFirstTouchAtPoint:movePoint];
 	[self showTideForPoint: [[datasource tideDataToChart] nearestDataPointForTime: touchPoint.x / 0.3333]];
 }
@@ -201,7 +230,7 @@
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [touches anyObject];
-    
+	
     CGPoint location = [touch locationInView:self];
     cursorView.center = CGPointMake(location.x, 150);
 	[self showTideForPoint: [[datasource tideDataToChart] nearestDataPointForTime:location.x / 0.3333]];
@@ -209,9 +238,14 @@
 
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    
     self.userInteractionEnabled = NO;
     [self animateCursorViewToCurrentTime];
+	
+	// if not the current day hide the cursor and tide details
+	if (cursorView.center.x <= 0.0) {
+		[cursorView removeFromSuperview];
+		[self hideTideDetails];
+	}
 }
 
 

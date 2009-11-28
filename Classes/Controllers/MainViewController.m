@@ -28,13 +28,14 @@
 #import "SDTideEvent.h"
 #import "RootViewController.h"
 
-@interface MainViewController (PrivateMethods)
+@interface MainViewController ()
 - (int)currentTimeInMinutes:(SDTide *)tide;
 @end
 
 @implementation MainViewController
 
 @synthesize sdTide;
+@synthesize currentTideView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -96,12 +97,12 @@
 	if ([[sdTide events] count] > 4) {
 		// there shouldn't be more than 4 tide events in a day -- 2 high, 2 low
 		[correctionLabel setText:@"Too many events predicted"];
-		return nil;
+		return;
 	}
 	 
 	int index = 0;
 	for (SDTideEvent *event in [sdTide events]) {
-		[[[table objectAtIndex:index] objectAtIndex:0] setText: [event eventTimeString24HR]];
+		[[[table objectAtIndex:index] objectAtIndex:0] setText: [event eventTimeNativeFormat]];
 		[[[table objectAtIndex:index] objectAtIndex:1] setText: [NSString stringWithFormat:@"%0.2f %@",[event eventHeight], [sdTide unitShort]]];
 		[[[table objectAtIndex:index] objectAtIndex:2] setText: [event eventTypeDescription]];
 		++index;
@@ -128,6 +129,7 @@
 		NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageName 
 															  ofType:@"png"];
 		[tideStateImage setImage:[UIImage imageWithContentsOfFile:imagePath]];
+		[tideStateImage setAccessibilityLabel:[imageName isEqualToString:@"Increasing"] ? @"rising" : @"falling"];
 	} else {
 		[tideStateImage setImage:nil];
 	}

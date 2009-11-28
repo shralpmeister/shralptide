@@ -18,6 +18,7 @@
 		289233A70DB2D0840083E9F9 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A50DB2D0840083E9F9 /* MainView.m */; };
 		289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AB0DB2D0DB0083E9F9 /* RootViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
+		DC0C0DD6105C1D8F0080297E /* ChartScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C0DD5105C1D8F0080297E /* ChartScrollView.m */; };
 		DC1EBBEB0EDBAEFA0093FA18 /* WaitView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1EBBEA0EDBAEFA0093FA18 /* WaitView.m */; };
 		DC2975DE0F2BDBF4000D0E7E /* location_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2975DC0F2BDBF3000D0E7E /* location_icon.png */; };
 		DC2975DF0F2BDBF4000D0E7E /* world_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2975DD0F2BDBF4000D0E7E /* world_icon.png */; };
@@ -42,6 +43,8 @@
 		DCC7EB6A0F20622800E6904E /* CONTRIBUTORS.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB670F20622800E6904E /* CONTRIBUTORS.txt */; };
 		DCC7EB6B0F20622800E6904E /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB680F20622800E6904E /* LICENSE.txt */; };
 		DCC7EB6C0F20622800E6904E /* CHANGES_AND_TODO_LIST.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB690F20622800E6904E /* CHANGES_AND_TODO_LIST.txt */; };
+		DCCA6F4A1065440F00322BC6 /* CurrentTideView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCA6F491065440F00322BC6 /* CurrentTideView.m */; };
+		DCCA701D10672D9E00322BC6 /* TideRowView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCA701C10672D9E00322BC6 /* TideRowView.m */; };
 		DCCAD90E0F1DBC4600141002 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = DCCAD90D0F1DBC4600141002 /* FMResultSet.m */; };
 		DCCAD9320F1DD25E00141002 /* DeveloperSettings.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */; };
 		DCE897DB0EEE3CAE00BF2357 /* CursorView.m in Sources */ = {isa = PBXBuildFile; fileRef = DCE897DA0EEE3CAE00BF2357 /* CursorView.m */; };
@@ -50,7 +53,6 @@
 		DCFD59480E39A93D00B7B1B8 /* SDTideInterval.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFD59420E39A93D00B7B1B8 /* SDTideInterval.m */; };
 		DCFD59490E39A93D00B7B1B8 /* SDTideFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFD59440E39A93D00B7B1B8 /* SDTideFactory.m */; };
 		DCFD594A0E39A93D00B7B1B8 /* SDTideEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFD59460E39A93D00B7B1B8 /* SDTideEvent.m */; };
-		DCFD59510E39A98100B7B1B8 /* everythi.h in Sources */ = {isa = PBXBuildFile; fileRef = DCFD59360E39A92A00B7B1B8 /* everythi.h */; };
 		DCFD59560E39A98100B7B1B8 /* tidelib.c in Sources */ = {isa = PBXBuildFile; fileRef = DCFD593B0E39A92A00B7B1B8 /* tidelib.c */; };
 		DCFD59570E39A98100B7B1B8 /* timelib.c in Sources */ = {isa = PBXBuildFile; fileRef = DCFD593C0E39A92A00B7B1B8 /* timelib.c */; };
 		DCFD597A0E39AB0100B7B1B8 /* harmonics in Resources */ = {isa = PBXBuildFile; fileRef = DCFD59790E39AB0100B7B1B8 /* harmonics */; };
@@ -77,11 +79,13 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* ShralpTide_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShralpTide_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC0C0DD5105C1D8F0080297E /* ChartScrollView.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; name = ChartScrollView.m; path = Classes/Views/ChartScrollView.m; sourceTree = "<group>"; };
 		DC1EBBE90EDBAEFA0093FA18 /* WaitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitView.h; path = Classes/Views/WaitView.h; sourceTree = "<group>"; };
 		DC1EBBEA0EDBAEFA0093FA18 /* WaitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitView.m; path = Classes/Views/WaitView.m; sourceTree = "<group>"; };
 		DC25A1FA0EEA575D0038078B /* ChartViewDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartViewDatasource.h; path = Classes/Controllers/ChartViewDatasource.h; sourceTree = "<group>"; };
 		DC2975DC0F2BDBF3000D0E7E /* location_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = location_icon.png; path = Resources/location_icon.png; sourceTree = "<group>"; };
 		DC2975DD0F2BDBF4000D0E7E /* world_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = world_icon.png; path = Resources/world_icon.png; sourceTree = "<group>"; };
+		DC29826F102A784B009259BA /* ChartScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartScrollView.h; path = Classes/Views/ChartScrollView.h; sourceTree = "<group>"; };
 		DC2E8CDA0F188BFB00DCA0A7 /* HomeScreenIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HomeScreenIcon.png; path = Resources/HomeScreenIcon.png; sourceTree = "<group>"; };
 		DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = link_arrow.png; path = Resources/link_arrow.png; sourceTree = "<group>"; };
 		DC2F28490E5A758800577E55 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/Controllers/MainViewController.m; sourceTree = "<group>"; };
@@ -111,6 +115,10 @@
 		DCC7EB670F20622800E6904E /* CONTRIBUTORS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CONTRIBUTORS.txt; path = FMDB/CONTRIBUTORS.txt; sourceTree = "<group>"; };
 		DCC7EB680F20622800E6904E /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = FMDB/LICENSE.txt; sourceTree = "<group>"; };
 		DCC7EB690F20622800E6904E /* CHANGES_AND_TODO_LIST.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CHANGES_AND_TODO_LIST.txt; path = FMDB/CHANGES_AND_TODO_LIST.txt; sourceTree = "<group>"; };
+		DCCA6F481065440F00322BC6 /* CurrentTideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentTideView.h; sourceTree = "<group>"; };
+		DCCA6F491065440F00322BC6 /* CurrentTideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentTideView.m; sourceTree = "<group>"; };
+		DCCA701B10672D9E00322BC6 /* TideRowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideRowView.h; sourceTree = "<group>"; };
+		DCCA701C10672D9E00322BC6 /* TideRowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TideRowView.m; sourceTree = "<group>"; };
 		DCCAD90D0F1DBC4600141002 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = FMDB/FMResultSet.m; sourceTree = "<group>"; };
 		DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = DeveloperSettings.xcconfig; sourceTree = "<group>"; };
 		DCE897D90EEE3CAE00BF2357 /* CursorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CursorView.h; path = Classes/Views/CursorView.h; sourceTree = "<group>"; };
@@ -184,6 +192,10 @@
 				289233A50DB2D0840083E9F9 /* MainView.m */,
 				289233A80DB2D0DB0083E9F9 /* MainViewController.h */,
 				DC2F28490E5A758800577E55 /* MainViewController.m */,
+				DCCA6F481065440F00322BC6 /* CurrentTideView.h */,
+				DCCA6F491065440F00322BC6 /* CurrentTideView.m */,
+				DCCA701B10672D9E00322BC6 /* TideRowView.h */,
+				DCCA701C10672D9E00322BC6 /* TideRowView.m */,
 			);
 			name = "Main View";
 			sourceTree = "<group>";
@@ -271,6 +283,8 @@
 				DC25A1FA0EEA575D0038078B /* ChartViewDatasource.h */,
 				DCE897D90EEE3CAE00BF2357 /* CursorView.h */,
 				DCE897DA0EEE3CAE00BF2357 /* CursorView.m */,
+				DC29826F102A784B009259BA /* ChartScrollView.h */,
+				DC0C0DD5105C1D8F0080297E /* ChartScrollView.m */,
 			);
 			name = ChartView;
 			sourceTree = "<group>";
@@ -294,10 +308,10 @@
 		DCFD59310E39A8F700B7B1B8 /* xtidelib */ = {
 			isa = PBXGroup;
 			children = (
+				DCFD59360E39A92A00B7B1B8 /* everythi.h */,
 				DC2F28670E5A75E100577E55 /* config.h */,
 				DC2F28640E5A75D500577E55 /* arglib.c */,
 				DC2F28650E5A75D500577E55 /* arglib.h */,
-				DCFD59360E39A92A00B7B1B8 /* everythi.h */,
 				DCFD593B0E39A92A00B7B1B8 /* tidelib.c */,
 				DCFD593C0E39A92A00B7B1B8 /* timelib.c */,
 			);
@@ -399,7 +413,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DCFD59510E39A98100B7B1B8 /* everythi.h in Sources */,
 				DCFD59560E39A98100B7B1B8 /* tidelib.c in Sources */,
 				DCFD59570E39A98100B7B1B8 /* timelib.c in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
@@ -422,6 +435,9 @@
 				DC328D120EE30652004F45C4 /* SDTideStation.m in Sources */,
 				DCE897DB0EEE3CAE00BF2357 /* CursorView.m in Sources */,
 				DCCAD90E0F1DBC4600141002 /* FMResultSet.m in Sources */,
+				DC0C0DD6105C1D8F0080297E /* ChartScrollView.m in Sources */,
+				DCCA6F4A1065440F00322BC6 /* CurrentTideView.m in Sources */,
+				DCCA701D10672D9E00322BC6 /* TideRowView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,7 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Parlee";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee (25H7G2523Q)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -442,6 +458,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShralpTide_Prefix.pch;
+				GCC_VERSION = 4.2;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
@@ -453,8 +470,8 @@
 				);
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "093283FB-ACFE-4306-A72E-10A3B958AF82";
-				SDKROOT = iphoneos2.2;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "454B479C-26F9-4ABE-BA4D-609A0103ECA3";
+				SDKROOT = iphoneos2.2.1;
 				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = "-Wl,-M";
 			};
@@ -464,6 +481,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee (25H7G2523Q)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -471,6 +489,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShralpTide_Prefix.pch;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -488,12 +507,13 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D465FCAA-FFB5-44A7-A0B4-A979106139DB";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphonesimulator3.0;
 			};
 			name = Debug;
 		};
@@ -510,22 +530,20 @@
 			};
 			name = Release;
 		};
-		DCAB3C1D0E5BD2DA0030D000 /* Distribution */ = {
+		DC4DCF3A10916D580038CECA /* Distribution */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCCAD9310F1DD25E00141002 /* DeveloperSettings.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Parlee";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "093283FB-ACFE-4306-A72E-10A3B958AF82";
 				SDKROOT = iphoneos2.2;
 			};
 			name = Distribution;
 		};
-		DCAB3C1E0E5BD2DA0030D000 /* Distribution */ = {
+		DC4DCF3B10916D580038CECA /* Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -537,15 +555,17 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShralpTide_Prefix.pch;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "093283FB-ACFE-4306-A72E-10A3B958AF82";
-				SDKROOT = iphoneos2.2;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3135CB72-1CB1-4C43-8C50-0A1D61BF5088";
+				SDKROOT = iphoneos3.0;
 			};
 			name = Distribution;
 		};
@@ -557,7 +577,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
-				DCAB3C1E0E5BD2DA0030D000 /* Distribution */,
+				DC4DCF3B10916D580038CECA /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -567,7 +587,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-				DCAB3C1D0E5BD2DA0030D000 /* Distribution */,
+				DC4DCF3A10916D580038CECA /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

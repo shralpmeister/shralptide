@@ -49,6 +49,8 @@
 
 	IBOutlet UILabel *correctionLabel;
 	
+	IBOutlet UIView *currentTideView;
+	
 	NSArray *table;
 	int pageNumber;
 }
@@ -64,4 +66,5 @@
 -(IBAction)followHyperlink:(id)sender;
 
 @property (readonly) SDTide *sdTide;
+@property (nonatomic,retain) UIView *currentTideView;
 @end

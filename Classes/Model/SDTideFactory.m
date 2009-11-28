@@ -89,6 +89,7 @@
     }
     
 	NSArray *tideEvents = [self populateTideEvents:stoptime];
+	NSLog(@"Found %d tide events.",[tideEvents count]);
     
 	NSMutableArray *filteredEvents = [[NSMutableArray alloc] initWithArray:tideEvents];
 	
@@ -102,6 +103,7 @@
 			if (round(height1) == round(height2)) {
 				for (id object in pair) {
 					[filteredEvents removeObject: object];
+					NSLog(@"Removed tide: %@");
 				}
 			}
 			[pair removeObjectAtIndex:0];
@@ -110,7 +112,7 @@
 	
 	[pair release];
     
-    SDTide *tideObj = [[SDTide alloc] initWithTideStation: station StartDate:startDate EndDate:endDate Events:filteredEvents andIntervals:tideArray];
+    SDTide *tideObj = [[[SDTide alloc] initWithTideStation: station StartDate:startDate EndDate:endDate Events:filteredEvents andIntervals:tideArray] autorelease];
 	
 	[filteredEvents release];
 	

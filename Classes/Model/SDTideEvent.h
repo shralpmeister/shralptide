@@ -39,6 +39,7 @@ typedef NSUInteger SDTideState;
 }
 -(id)initWithTime:(NSDate *)t Event:(SDTideState)e andHeight:(float)f;
 -(NSString *)eventTypeDescription;
+-(NSString *)eventTimeNativeFormat;
 -(NSString *)eventTimeString12HR;
 -(NSString *)eventTimeString24HR;
 @property (retain,readwrite) NSDate *eventTime;

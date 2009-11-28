@@ -30,15 +30,19 @@
 @interface ChartView : UIView {
 	@private
 		id datasource;
+		NSMutableDictionary *times;
 	@public
 		IBOutlet UIView *cursorView;
 		IBOutlet UINavigationBar *navBarView;
+		IBOutlet UIActivityIndicatorView *activityIndicator;
 }
 
 -(int)currentTimeInMinutes:(SDTide*)tide;
-- (void)animateCursorViewToCurrentTime;
+-(void)animateCursorViewToCurrentTime;
 
 @property (readwrite, assign) id datasource;
 @property (nonatomic, retain) UIView *cursorView;
 @property (nonatomic, retain) UINavigationBar *navBarView;
+@property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, retain) NSMutableDictionary *times;
 @end

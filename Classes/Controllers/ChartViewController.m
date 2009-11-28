@@ -25,13 +25,13 @@
 
 @implementation ChartViewController
 
-@synthesize tide;
+@synthesize sdTide;
 
 // Override initWithNibName:bundle: to load the view using a nib file then perform additional customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil tide:(SDTide *)aTide {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // Custom initialization
-		self.tide = aTide;
+		self.sdTide = aTide;
     }
     return self;
 }
@@ -53,14 +53,23 @@
 	[(ChartView*)self.view animateCursorViewToCurrentTime];
 }
 
+//-(void)drawChart {
+//	NSLog(@"Drawing chart...");
+//	ChartView *chartView = (ChartView*)self.view;
+//	[chartView.activityIndicator stopAnimating];
+//	[chartView.activityIndicator removeFromSuperview];
+//	chartView.displayChart = YES;
+//	[chartView setNeedsDisplay];
+//}
+
 #pragma mark ChartViewDatasource
 -(SDTide *)tideDataToChart {
-	return self.tide;
+	return self.sdTide;
 }
 
 - (void)dealloc {
     [super dealloc];
-	[tide release];
+	[sdTide release];
 }
 
 

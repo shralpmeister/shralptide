@@ -36,8 +36,9 @@
 //crazy core animation stuff
 #define kAnimationKey @"transitionViewAnimation"
 
-@interface RootViewController (PrivateMethods)
+@interface RootViewController ()
 - (void)loadScrollViewWithPage:(int)page;
+- (void)loadChartScrollViewWithPage:(int)page;
 - (void)scrollViewDidScroll:(UIScrollView *)sender;
 - (void)createMainViews;
 - (void)startWaitIndicator;
@@ -49,8 +50,8 @@
 - (BOOL)writeApplicationData:(NSData *)data toFile:(NSString *)fileName;
 - (NSData *)applicationDataFromFile:(NSString *)fileName;
 - (void)replaceSubview:(UIView *)oldView withSubview:(UIView *)newView transition:(NSString *)transition direction:(NSString *)direction duration:(NSTimeInterval)duration;
--(void)refreshLocationTable;
--(void)setDefaultLocation;
+- (void)refreshLocationTable;
+- (void)setDefaultLocation;
 @end
 
 static NSUInteger kNumberOfPages = 5;
@@ -59,7 +60,7 @@ static NSUInteger kNumberOfPages = 5;
 
 @synthesize infoButton;
 @synthesize flipsideViewController;
-@synthesize chartViewController;
+@synthesize chartScrollView;
 @synthesize searchBar;
 @synthesize activityIndicator;
 @synthesize location;
@@ -69,6 +70,7 @@ static NSUInteger kNumberOfPages = 5;
 @synthesize sdTide;
 @synthesize currentCalendar;
 @synthesize viewControllers;
+@synthesize chartViewControllers;
 @synthesize scrollView;
 @synthesize locationManager;
 @synthesize waitReason;
@@ -76,7 +78,7 @@ static NSUInteger kNumberOfPages = 5;
 @synthesize tideStation;
 
 - (void)viewDidLoad {
-	NSString *lastLocation = [self lastLocation];
+	NSString *lastLocation = [[self lastLocation] retain];
 	
 	if (lastLocation) {
 		[self setLocation:lastLocation];
@@ -91,6 +93,7 @@ static NSUInteger kNumberOfPages = 5;
 	} else {
 		[self setDefaultLocation];
 	}
+	[lastLocation release];
 	self.currentCalendar = [NSCalendar currentCalendar];
 	
 	[self createMainViews];
@@ -104,15 +107,20 @@ static NSUInteger kNumberOfPages = 5;
 
 - (void)createMainViews {
 	NSMutableArray *controllers = [[NSMutableArray alloc] init];
+	NSMutableArray *chartControllers = [[NSMutableArray alloc] init];
     for (unsigned i = 0; i < kNumberOfPages; i++) {
         [controllers addObject:[NSNull null]];
+		[chartControllers addObject:[NSNull null]];
     }
     self.viewControllers = controllers;
+	self.chartViewControllers = chartControllers;
     [controllers release];
+	[chartControllers release];
 	
     // a page is the width of the scroll view
     scrollView.pagingEnabled = YES;
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width * kNumberOfPages, self.view.frame.size.height);
+	// subtract 20 from height to account for scroll bar at top of portrait
+    scrollView.contentSize = CGSizeMake(self.view.frame.size.width * kNumberOfPages, self.view.frame.size.height - 20);
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.scrollsToTop = NO;
@@ -128,21 +136,35 @@ static NSUInteger kNumberOfPages = 5;
 	[pageControl removeFromSuperview];
 	[self.view addSubview:pageControl];
 	
+	chartScrollView.pagingEnabled = YES;
+	// put 20 back on the height and subtract 20 from width to account for scroll bar at top of landscape 
+	chartScrollView.contentSize = CGSizeMake((self.view.frame.size.height + 20) * kNumberOfPages, self.view.frame.size.width - 20);
+	chartScrollView.showsVerticalScrollIndicator = NO;
+	chartScrollView.showsVerticalScrollIndicator = NO;
+	chartScrollView.scrollsToTop = NO;
+	chartScrollView.directionalLockEnabled = YES;
+	chartScrollView.delegate = self;
+	chartScrollView.autoresizingMask = UIViewAutoresizingNone;
+	
 	[self loadScrollViewWithPage:0];
 }
 
 - (void)refreshViews {
 	NSLog(@"Refresh views called at %@", [NSDate date]);
-	if (chartViewController != nil && [chartViewController.view superview] != nil) {
-		[chartViewController showCurrentTime];
-	}
 	
 	MainViewController *pageOneController = [viewControllers objectAtIndex:0];
+	
 	if ([[NSDate date] timeIntervalSinceDate: [[pageOneController sdTide] startTime]] > 86400) {
 		[self viewDidAppear:YES];
 	} else {
 		[pageOneController updatePresentTideInfo];
 	}
+}
+
+- (void)clearChartData {
+	for (unsigned i = 0; i < kNumberOfPages; i++) {
+		[chartViewControllers replaceObjectAtIndex:i withObject:[NSNull null]];
+    }
 }
 
 - (void)recalculateTides:(id)object {
@@ -181,7 +203,6 @@ static NSUInteger kNumberOfPages = 5;
 	[waitReason setText:(NSString*)object];
 }
 
-#pragma mark UIScrollViewDelegate
 - (void)loadScrollViewWithPage:(int)page {
     if (page < 0) return;
     if (page >= kNumberOfPages) return;
@@ -196,7 +217,6 @@ static NSUInteger kNumberOfPages = 5;
 		[controller setSdTide:[self computeTidesForDate: [self add: page daysToDate: [NSDate date]]]];
 		[controller setParentViewController:self];
         [viewControllers replaceObjectAtIndex:page withObject:controller];
-        [controller release];
     } else {
 		[controller setSdTide:[self computeTidesForDate: [self add: page daysToDate: [NSDate date]]]];
 	}
@@ -223,6 +243,8 @@ static NSUInteger kNumberOfPages = 5;
 	return result;
 }
 
+
+#pragma mark UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
     // We don't want a "feedback loop" between the UIPageControl and the scroll delegate in
     // which a scroll event generated from the user hitting the page control triggers updates from
@@ -232,35 +254,32 @@ static NSUInteger kNumberOfPages = 5;
         return;
     }
     // Switch the indicator when more than 50% of the previous/next page is visible
-    CGFloat pageWidth = scrollView.frame.size.width;
-    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    CGFloat pageWidth = sender.frame.size.width;
+    int page = floor((sender.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     pageControl.currentPage = page;
-	
-    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
-    //[self loadScrollViewWithPage:page - 1];
-    //[self loadScrollViewWithPage:page];
-    //[self loadScrollViewWithPage:page + 1];
-	
-    // A possible optimization would be to unload the views+controllers which are no longer visible
+
+	if (chartScrollView.superview != nil) {
+		[self loadChartScrollViewWithPage:page - 1];
+		[self loadChartScrollViewWithPage:page];
+		[self loadChartScrollViewWithPage:page + 1];
+	}
 }
+
 
 // At the end of scroll animation, reset the boolean used when scrolls originate from the UIPageControl
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)aScrollView {
-	NSLog(@"scrollview ended animating. page: %d",pageControl.currentPage);
-	[pageControl updateCurrentPageDisplay];
     pageControlUsed = NO;
+	[pageControl updateCurrentPageDisplay];
 }
 
 - (IBAction)changePage:(id)sender {
     int page = pageControl.currentPage;
-    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
-    //[self loadScrollViewWithPage:page - 1];
-    //[self loadScrollViewWithPage:page];
-    //[self loadScrollViewWithPage:page + 1];
+
     // update the scroll view to the appropriate page
     CGRect frame = scrollView.frame;
     frame.origin.x = frame.size.width * page;
     frame.origin.y = 0;
+
     [scrollView scrollRectToVisible:frame animated:YES];
     // Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
     pageControlUsed = YES;
@@ -316,11 +335,34 @@ static NSUInteger kNumberOfPages = 5;
 	[tableView scrollToRowAtIndexPath:0 atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
 
-- (void)loadChartViewController
-{
-	ChartViewController *viewController = [[ChartViewController alloc] initWithNibName:@"ChartView" bundle:nil];
-	self.chartViewController = viewController;
-	[viewController release];
+- (void)loadChartScrollViewWithPage:(int)page {
+    if (page < 0) return;
+    if (page >= kNumberOfPages) return;
+	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+    // replace the placeholder if necessary
+    ChartViewController *controller = [chartViewControllers objectAtIndex:page];
+    if ((NSNull *)controller == [NSNull null]) {
+		controller = [[ChartViewController alloc] initWithNibName:@"ChartView" bundle:nil tide:[[viewControllers objectAtIndex:page] sdTide]];
+        [chartViewControllers replaceObjectAtIndex:page withObject:controller];
+    } else {
+		if (controller.sdTide == nil) {
+			[controller setSdTide:[[viewControllers objectAtIndex:page] sdTide]];
+		}
+	}
+	
+	[pool release];
+	
+    // add the controller's view to the scroll view
+    if (nil == controller.view.superview) {
+        CGRect frame = chartScrollView.frame;
+        frame.origin.x = frame.size.width * page;
+        frame.origin.y = 0;
+        controller.view.frame = frame;
+        [chartScrollView addSubview:controller.view];
+    }
+	
 }
 
 -(void)chooseFromNearbyTideStations {
@@ -437,13 +479,15 @@ static NSUInteger kNumberOfPages = 5;
 
 -(void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear: animated];
+	[self clearChartData];
 	[self startWaitIndicator];
 	[NSThread detachNewThreadSelector:@selector(recalculateTides:) toTarget:self withObject:nil];
+	[[(MainViewController*)[viewControllers objectAtIndex:0] currentTideView] becomeFirstResponder];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	UIView *mainView = scrollView;
-	UIView *chartView = [chartViewController view];
+	UIView *chartView = chartScrollView;
 	
 	NSArray *subviews = [self.view subviews];
 	if ([[subviews objectAtIndex:([subviews count] - 1)] isKindOfClass:[WaitView class]]) {
@@ -460,7 +504,8 @@ static NSUInteger kNumberOfPages = 5;
 
 
 - (void)didReceiveMemoryWarning {
-	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+	[super didReceiveMemoryWarning];
+	// Releases the view if it doesn't have a superview
 	// Release anything that's not essential, such as cached data
 	NSLog(@"Low memory warning!");
 	
@@ -492,13 +537,14 @@ static NSUInteger kNumberOfPages = 5;
 - (void)dealloc {
 	[infoButton release];
 	[flipsideViewController release];
-	[chartViewController release];
+	[chartScrollView release];
 	[searchBar release];
 	[locations release];
 	[filteredLocations release];
 	[savedLocations release];
 	[currentCalendar release];
 	[viewControllers release];
+	[chartViewControllers release];
 	[scrollView release];
 	[waitIndicator release];
 	[waitReason release];
@@ -546,50 +592,60 @@ static NSUInteger kNumberOfPages = 5;
 	return result;
 }
 -(void)showMainView {
-	if (chartViewController == nil) {
+	if (chartScrollView == nil) {
 		return;
 	}
 	
 	UIView *mainView = scrollView;
-	UIView *chartView = [chartViewController view];
+	UIView *chartView = chartScrollView;
 	
 	if ([chartView superview] == nil) {
 		return;
 	}
 	
 	[mainView setNeedsLayout];
+	
+	int page = pageControl.currentPage;
+	CGRect frame = scrollView.frame;
+	frame.origin.x = frame.size.width * page;
+	frame.origin.y = 0;
+	[(MainViewController*)[viewControllers objectAtIndex:page] view].frame = frame;
+	[scrollView scrollRectToVisible:frame animated:NO];
+
+	
 	[(MainViewController*)[self.viewControllers objectAtIndex:0] updatePresentTideInfo];
 	[self replaceSubview:chartView withSubview:mainView transition:kCATransitionFade direction:@"" duration:0.75];
 	[self.view addSubview:pageControl];
-	
 }
 
 -(void)showChartView
-{
-	if (chartViewController == nil) {
-		[self loadChartViewController];
-	}
-	
+{	
 	NSLog(@"Setting chart view to use tide from page %d",pageControl.currentPage);
-	SDTide *tide = [[[self viewControllers] objectAtIndex:pageControl.currentPage] sdTide];
-	[chartViewController setTide:tide];
+	[self loadChartScrollViewWithPage:pageControl.currentPage];
 	
 	UIView *mainView = scrollView;
-	UIView *chartView = [chartViewController view];
+	UIView *chartView = chartScrollView;
 	
 	if ([mainView superview] == nil) {
 		return;
 	}
 	
-	[chartView setNeedsDisplay];
-	[pageControl removeFromSuperview];
+	int page = pageControl.currentPage;
+	CGRect frame = chartScrollView.frame;
+	frame.origin.x = frame.size.width * page;
+	frame.origin.y = 0;
+	ChartViewController *viewController = (ChartViewController*)[chartViewControllers objectAtIndex:page];
+	viewController.view.frame = frame;
+
+	[chartScrollView scrollRectToVisible:frame animated:NO];
+	[chartView setNeedsLayout];
 	[self replaceSubview:mainView withSubview:chartView transition:kCATransitionFade direction:@"" duration:0.75];
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
 	UIView *mainView = scrollView; 
-	UIView *chartView = [chartViewController view];
+	UIView *chartView = chartScrollView;
 	
 	if ([mainView superview] != nil || [chartView superview] != nil) {
 		switch (toInterfaceOrientation) {
@@ -783,14 +839,15 @@ static NSUInteger kNumberOfPages = 5;
 		[manager stopUpdatingLocation];
 	}
 	
-#if TARGET_IPHONE_SIMULATOR
-	[newLocation release];
-	//newLocation = [[CLLocation alloc] initWithLatitude:48.4500 longitude:-123.3000]; // victoria, bc
-	//newLocation = [[CLLocation alloc] initWithLatitude:-33.867707 longitude: 151.225777]; sydney, aus
-	//newLocation = [[CLLocation alloc] initWithLatitude:-36.846581 longitude: 174.77809]; // aukland, nz
-	//newLocation = [[CLLocation alloc] initWithLatitude:35.570922 longitude:140.331673]; // chiba, jp
-	newLocation = [[CLLocation alloc] initWithLatitude:41.855242 longitude:-87.618713]; // chicago, il
-#endif
+//#if TARGET_IPHONE_SIMULATOR
+	// broken under 3.1 and 10.6 - Looks like simulator might use CoreLocation on Mac
+//	[newLocation release];
+//	//newLocation = [[CLLocation alloc] initWithLatitude:48.4500 longitude:-123.3000]; // victoria, bc
+//	//newLocation = [[CLLocation alloc] initWithLatitude:-33.867707 longitude: 151.225777]; sydney, aus
+//	//newLocation = [[CLLocation alloc] initWithLatitude:-36.846581 longitude: 174.77809]; // aukland, nz
+//	//newLocation = [[CLLocation alloc] initWithLatitude:35.570922 longitude:140.331673]; // chiba, jp
+//	newLocation = [[CLLocation alloc] initWithLatitude:41.855242 longitude:-87.618713]; // chicago, il
+//#endif
 	
     if (signbit(newLocation.horizontalAccuracy)) {
         // Negative accuracy means an invalid or unavailable measurement
@@ -899,7 +956,7 @@ static NSUInteger kNumberOfPages = 5;
 
 -(NSString*)lastLocation {
 	NSDictionary *plist = [self applicationPlistFromFile:@"tidestate.plist"];
-	return [(NSString *)[plist objectForKey:@"location"] retain];
+	return (NSString *)[plist objectForKey:@"location"];
 }
 
 - (BOOL)writeApplicationPlist:(id)plist toFile:(NSString *)fileName {

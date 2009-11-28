@@ -26,13 +26,14 @@
 #import "ChartView.h"
 
 @interface ChartViewController : UIViewController <ChartViewDatasource> {
-	SDTide *tide;
+	SDTide *sdTide;
 }
 
 -(SDTide *)tideDataToChart;
 
 -(void)showCurrentTime;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil tide:(SDTide *)aTide;
+//-(void)drawChart;
 
-@property (nonatomic,retain) SDTide *tide;
+@property (nonatomic,retain) SDTide *sdTide;
 @end

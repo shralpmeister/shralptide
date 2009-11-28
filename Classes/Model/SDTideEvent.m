@@ -62,8 +62,17 @@
         case SDTideStateSlack:
             result = @"Slack";
             break;
+		default:
+			result = @"";
+			break;
     }
     return result;
+}
+
+-(NSString *)eventTimeNativeFormat {
+	NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+	[formatter setTimeStyle:NSDateFormatterShortStyle];
+	return [formatter stringFromDate:eventTime];
 }
 
 -(NSString *)eventTimeString24HR {

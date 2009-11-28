@@ -25,10 +25,10 @@
 #import "SDTide.h"
 #import "WaitView.h"
 #import "SDTideStation.h"
+#import "ChartScrollView.h"
 
 @class MainViewController;
 @class FlipsideViewController;
-@class ChartViewController;
 
 @interface RootViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIScrollViewDelegate, CLLocationManagerDelegate>
 {
@@ -40,8 +40,9 @@
 	IBOutlet UILabel *waitReason;
 	IBOutlet UIActivityIndicatorView *waitIndicator;
     NSMutableArray *viewControllers;
+	NSMutableArray *chartViewControllers;
 	FlipsideViewController *flipsideViewController;
-	ChartViewController *chartViewController;
+	IBOutlet ChartScrollView *chartScrollView;
 	UISearchBar *searchBar;
 	UIActivityIndicatorView *activityIndicator;
 	UITableView *tableView;
@@ -63,7 +64,7 @@
 @property (nonatomic, retain) UIButton *infoButton;
 @property (nonatomic, retain) UIScrollView *scrollView;
 @property (nonatomic, retain) FlipsideViewController *flipsideViewController;
-@property (nonatomic, retain) ChartViewController *chartViewController;
+@property (nonatomic, retain) ChartScrollView *chartScrollView;
 @property (nonatomic, retain) UISearchBar *searchBar;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, retain) NSArray *locations;
@@ -72,6 +73,7 @@
 @property (nonatomic, retain) NSMutableArray *savedLocations;
 @property (nonatomic, retain) SDTide* sdTide;
 @property (nonatomic, retain) NSMutableArray *viewControllers;
+@property (nonatomic, retain) NSMutableArray *chartViewControllers;
 @property (nonatomic, retain) NSCalendar *currentCalendar;
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) UILabel *waitReason;
