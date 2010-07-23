@@ -260,34 +260,13 @@
 
 - (void)animateFirstTouchAtPoint:(CGPoint)touchPoint {
     
-#define GROW_ANIMATION_DURATION_SECONDS 0.05
-    
-    NSValue *touchPointValue = [[NSValue valueWithCGPoint:touchPoint] retain];
-    [UIView beginAnimations:nil context:touchPointValue];
-    [UIView setAnimationDuration:GROW_ANIMATION_DURATION_SECONDS];
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(growAnimationDidStop:finished:context:)];
-    CGAffineTransform transform = CGAffineTransformMakeScale(2.0, 2.0);
-    cursorView.transform = transform;
-    [UIView commitAnimations];
-}
-
-
-- (void)growAnimationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context {
-    
 #define MOVE_ANIMATION_DURATION_SECONDS 0.15
     
-    [UIView beginAnimations:nil context:NULL];
+    NSValue *touchPointValue = [NSValue valueWithCGPoint:touchPoint];
+    [UIView beginAnimations:nil context:touchPointValue];
     [UIView setAnimationDuration:MOVE_ANIMATION_DURATION_SECONDS];
-    cursorView.transform = CGAffineTransformMakeScale(1.5, 1.5);    
-    /*
-     Move the cursorView to under the touch.
-     We passed the location wrapped in an NSValue as the context.
-     Get the point from the value, then release the value because we retained it in touchesBegan:withEvent:.
-     */
-    NSValue *touchPointValue = (NSValue *)context;
+    cursorView.transform = CGAffineTransformMakeScale(1.5, 1.5);
     cursorView.center = [touchPointValue CGPointValue];
-    [touchPointValue release];
     [UIView commitAnimations];
 }
 
@@ -359,6 +338,8 @@
     // Set the placard view's center and transformation to the original values in preparation for the end of the animation
     cursorView.center = CGPointMake(midX, midY);
     cursorView.transform = CGAffineTransformIdentity;
+    
+    CGPathRelease(thePath);
 	
 	[self showTideForPoint: [[datasource tideDataToChart] nearestDataPointForTime:midX / 0.3333]];
 }

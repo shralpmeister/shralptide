@@ -76,6 +76,8 @@ static NSUInteger kNumberOfPages = 5;
 @synthesize waitReason;
 @synthesize transitioning;
 @synthesize tideStation;
+@synthesize nearbyLocations;
+@synthesize allLocations;
 
 - (void)viewDidLoad {
 	NSString *lastLocation = [[self lastLocation] retain];
@@ -212,10 +214,10 @@ static NSUInteger kNumberOfPages = 5;
     // replace the placeholder if necessary
     MainViewController *controller = [viewControllers objectAtIndex:page];
     if ((NSNull *)controller == [NSNull null]) {
-        controller = [[MainViewController alloc] initWithPageNumber:page];
+        controller = [[[MainViewController alloc] initWithPageNumber:page] autorelease];
 		
 		[controller setSdTide:[self computeTidesForDate: [self add: page daysToDate: [NSDate date]]]];
-		[controller setParentViewController:self];
+        controller.rootViewController = self;
         [viewControllers replaceObjectAtIndex:page withObject:controller];
     } else {
 		[controller setSdTide:[self computeTidesForDate: [self add: page daysToDate: [NSDate date]]]];
@@ -294,10 +296,10 @@ static NSUInteger kNumberOfPages = 5;
 	
 	[[flipsideViewController view] setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
 
-	filteredLocations = [[NSMutableArray alloc] initWithCapacity:[locations count]];
-	[filteredLocations addObjectsFromArray:locations];
+    self.filteredLocations = [NSMutableArray arrayWithCapacity:[self.locations count]];
+	[filteredLocations addObjectsFromArray:self.locations];
 	
-	savedLocations = [[NSMutableArray alloc] initWithCapacity:[locations count]];
+	self.savedLocations = [NSMutableArray arrayWithCapacity:[self.locations count]];
 	
 	UISearchBar *mySearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 44.0)];
 	mySearchBar.barStyle = UIBarStyleBlackOpaque;
@@ -321,13 +323,10 @@ static NSUInteger kNumberOfPages = 5;
 }
 
 -(void)refreshLocationTable {
-	[filteredLocations release];
-	[savedLocations release];
+	self.filteredLocations = [NSMutableArray arrayWithCapacity:[self.locations count]];
+	[self.filteredLocations addObjectsFromArray:self.locations];
 	
-	filteredLocations = [[NSMutableArray alloc] initWithCapacity:[locations count]];
-	[filteredLocations addObjectsFromArray:locations];
-	
-	savedLocations = [[NSMutableArray alloc] initWithCapacity:[locations count]];
+	self.savedLocations = [NSMutableArray arrayWithCapacity:[self.locations count]];
 	
 	[searchBar setText:@""];
 	
@@ -379,11 +378,11 @@ static NSUInteger kNumberOfPages = 5;
 
 -(void)showNearbyLocations: (CLLocation*) newLocation {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	nearbyLocations = [[SDTideFactory locationsNearLatitude:newLocation.coordinate.latitude 
-											  andLongitude:newLocation.coordinate.longitude] retain];
+	self.nearbyLocations = [SDTideFactory locationsNearLatitude:newLocation.coordinate.latitude 
+											  andLongitude:newLocation.coordinate.longitude];
 	[pool release];
 
-	for (SDTideStation *station in nearbyLocations) {
+	for (SDTideStation *station in self.nearbyLocations) {
 		CLLocation *stationLoc = [[CLLocation alloc] initWithLatitude:[station.latitude doubleValue]
 															longitude:[station.longitude doubleValue]];
 		station.distance = [NSNumber numberWithDouble:([newLocation getDistanceFrom:stationLoc] / 1000)];
@@ -394,9 +393,9 @@ static NSUInteger kNumberOfPages = 5;
 	NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending: YES];
 	NSArray *descriptors = [NSArray arrayWithObjects:sortDescriptor,nameDescriptor,nil];
 	
-	[nearbyLocations sortUsingDescriptors:descriptors];
+	[self.nearbyLocations sortUsingDescriptors:descriptors];
 	
-	locations = nearbyLocations;
+	self.locations = self.nearbyLocations;
 	
 	[sortDescriptor release];
 	[nameDescriptor release];
@@ -409,7 +408,7 @@ static NSUInteger kNumberOfPages = 5;
 		[self loadFlipsideViewController];
 	}
 	
-	if ([locations count] > 0) {
+	if ([self.locations count] > 0) {
 		[self toggleView];
 	} else {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There are no tide stations in your area. You may select a location manually by pressing the globe icon." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -421,15 +420,12 @@ static NSUInteger kNumberOfPages = 5;
 -(IBAction)chooseFromAllTideStations {
 	if (!allLocations) {
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		allLocations = [[SDTideFactory locations] retain];
+		self.allLocations = [SDTideFactory locations];
 		[pool release];
 	}
-	if (locations != allLocations) {
-		if (locations != nil) {
-			[locations release];
-		}
-		locations = allLocations;
-		NSLog(@"Locations retain count=%d",[locations retainCount]);
+	if (self.locations != self.allLocations) {
+		self.locations = self.allLocations;
+		NSLog(@"Locations retain count=%d",[self.locations retainCount]);
 		if (flipsideViewController) {
 			[self refreshLocationTable];
 		} else {
@@ -510,26 +506,10 @@ static NSUInteger kNumberOfPages = 5;
 	NSLog(@"Low memory warning!");
 	
 	if (flipsideViewController && ![flipsideViewController.view superview]) {
-		if (locations) {
-			[locations release];
-			locations = nil;
-			allLocations = nil;
-		}
-		
-		if (nearbyLocations) {
-			[nearbyLocations release];
-			nearbyLocations = nil;
-		}
-		
-		if (filteredLocations) {
-			[filteredLocations release];
-			filteredLocations = nil;
-		}
-		
-		if (savedLocations) {
-			[savedLocations release];
-			savedLocations = nil;
-		}
+        self.locations = nil;
+        self.nearbyLocations = nil;
+        self.filteredLocations = nil;
+        self.savedLocations = nil;
 	}
 }
 

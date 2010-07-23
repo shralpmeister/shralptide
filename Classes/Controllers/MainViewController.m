@@ -22,11 +22,9 @@
 */
 
 #import "MainViewController.h"
-#import "MainView.h"
 #import "SDTideFactory.h"
 #import "SDTide.h"
 #import "SDTideEvent.h"
-#import "RootViewController.h"
 
 @interface MainViewController ()
 - (int)currentTimeInMinutes:(SDTide *)tide;
@@ -36,6 +34,7 @@
 
 @synthesize sdTide;
 @synthesize currentTideView;
+@synthesize rootViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -168,11 +167,11 @@
 
 
 - (IBAction)chooseTideStation:(id)sender {
-	[(RootViewController*)[self parentViewController] chooseFromAllTideStations];
+	[self.rootViewController chooseFromAllTideStations];
 }
 
 -(IBAction)chooseNearbyTideStation:(id)sender {
-	[(RootViewController*)[self parentViewController] chooseFromNearbyTideStations];
+	[self.rootViewController chooseFromNearbyTideStations];
 }
 
 -(IBAction)followHyperlink:(id)sender {

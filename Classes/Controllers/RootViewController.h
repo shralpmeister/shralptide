@@ -48,7 +48,7 @@
 	UITableView *tableView;
 	NSArray *locations;
 	NSArray *allLocations;
-	NSMutableArray *nearbyLocations;
+	NSArray *nearbyLocations;
 	NSMutableArray *filteredLocations;
 	NSMutableArray *savedLocations;
 	SDTide *sdTide;
@@ -78,6 +78,8 @@
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) UILabel *waitReason;
 @property (nonatomic, retain) SDTideStation *tideStation;
+@property (nonatomic, retain) NSArray *nearbyLocations;
+@property (nonatomic, retain) NSArray *allLocations;
 
 @property (readonly, getter=isTransitioning) BOOL transitioning;
 

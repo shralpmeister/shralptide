@@ -287,12 +287,14 @@
 
 +(void)mapTideStation:(SDTideStation*)station fromResultSet:(FMResultSet*)rs
 {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	station.name = [rs stringForColumn:@"name"];
 	station.latitude = [NSNumber numberWithDouble:[rs doubleForColumn:@"lat"]];
 	station.longitude = [NSNumber numberWithDouble:[rs doubleForColumn:@"long"]];
 	station.displayName = [rs stringForColumn:@"disp_name"];
 	station.displayState = [rs stringForColumn:@"disp_state"];
 	station.units = [rs stringForColumn:@"unit"];
+    [pool release];
 }
 
 @end

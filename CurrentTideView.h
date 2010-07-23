@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MainView.h"
 
 @interface CurrentTideView : UIView {
 	IBOutlet UIImageView *directionImgView;

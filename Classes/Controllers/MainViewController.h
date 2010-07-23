@@ -22,6 +22,7 @@
 */
 
 #import "SDTide.h"
+#import "RootViewController.h"
 
 @interface MainViewController : UIViewController 
 {
@@ -53,6 +54,7 @@
 	
 	NSArray *table;
 	int pageNumber;
+    RootViewController *rootViewController;
 }
 
 -(void)refresh;
@@ -67,4 +69,5 @@
 
 @property (readonly) SDTide *sdTide;
 @property (nonatomic,retain) UIView *currentTideView;
+@property (nonatomic,retain) RootViewController *rootViewController;
 @end

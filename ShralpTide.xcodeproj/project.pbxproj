@@ -11,17 +11,12 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		280E754D0DD40C5E005A515E /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754A0DD40C5E005A515E /* FlipsideView.xib */; };
 		280E754E0DD40C5E005A515E /* MainView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754B0DD40C5E005A515E /* MainView.xib */; };
 		280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E754C0DD40C5E005A515E /* MainWindow.xib */; };
-		289233A60DB2D0840083E9F9 /* FlipsideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A30DB2D0840083E9F9 /* FlipsideView.m */; };
-		289233A70DB2D0840083E9F9 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233A50DB2D0840083E9F9 /* MainView.m */; };
 		289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AB0DB2D0DB0083E9F9 /* RootViewController.m */; };
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
 		DC0C0DD6105C1D8F0080297E /* ChartScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C0DD5105C1D8F0080297E /* ChartScrollView.m */; };
 		DC1EBBEB0EDBAEFA0093FA18 /* WaitView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1EBBEA0EDBAEFA0093FA18 /* WaitView.m */; };
-		DC2975DE0F2BDBF4000D0E7E /* location_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2975DC0F2BDBF3000D0E7E /* location_icon.png */; };
-		DC2975DF0F2BDBF4000D0E7E /* world_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2975DD0F2BDBF4000D0E7E /* world_icon.png */; };
 		DC2E8CDB0F188BFB00DCA0A7 /* HomeScreenIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2E8CDA0F188BFB00DCA0A7 /* HomeScreenIcon.png */; };
 		DC2E8CDD0F188C2100DCA0A7 /* link_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */; };
 		DC2F284A0E5A758800577E55 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F28490E5A758800577E55 /* MainViewController.m */; };
@@ -40,6 +35,12 @@
 		DC8EDBB20F107814009EAF2F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8EDBB10F107814009EAF2F /* Default.png */; };
 		DCA935600EDF722B0050113B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA9355F0EDF722B0050113B /* CoreLocation.framework */; };
 		DCA9379B0EE1B3910050113B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA9379A0EE1B3910050113B /* CoreGraphics.framework */; };
+		DCAF9D1311D65DAF007BDEEE /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9D1211D65DAF007BDEEE /* FlipsideView.xib */; };
+		DCB04CEE11D1D6F6000E7DF4 /* world_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB04CED11D1D6F6000E7DF4 /* world_icon@2x.png */; };
+		DCB04CF011D1D701000E7DF4 /* location_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB04CEF11D1D701000E7DF4 /* location_icon@2x.png */; };
+		DCB04CF611D1D8C9000E7DF4 /* HomeScreenIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB04CF511D1D8C9000E7DF4 /* HomeScreenIcon@2x.png */; };
+		DCB04D1311D1DAEB000E7DF4 /* location_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB04D1211D1DAEB000E7DF4 /* location_icon.png */; };
+		DCB04D1711D1DB58000E7DF4 /* world_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = DCB04D1611D1DB58000E7DF4 /* world_icon.png */; };
 		DCC7EB6A0F20622800E6904E /* CONTRIBUTORS.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB670F20622800E6904E /* CONTRIBUTORS.txt */; };
 		DCC7EB6B0F20622800E6904E /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB680F20622800E6904E /* LICENSE.txt */; };
 		DCC7EB6C0F20622800E6904E /* CHANGES_AND_TODO_LIST.txt in Resources */ = {isa = PBXBuildFile; fileRef = DCC7EB690F20622800E6904E /* CHANGES_AND_TODO_LIST.txt */; };
@@ -64,13 +65,8 @@
 		1D3623250D0F684500981E51 /* ShralpTideAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShralpTideAppDelegate.m; path = Controllers/ShralpTideAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* ShralpTide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShralpTide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		280E754A0DD40C5E005A515E /* FlipsideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FlipsideView.xib; path = Resources/FlipsideView.xib; sourceTree = "<group>"; };
 		280E754B0DD40C5E005A515E /* MainView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainView.xib; path = Resources/MainView.xib; sourceTree = "<group>"; };
 		280E754C0DD40C5E005A515E /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = Resources/MainWindow.xib; sourceTree = "<group>"; };
-		289233A20DB2D0840083E9F9 /* FlipsideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlipsideView.h; path = Classes/Views/FlipsideView.h; sourceTree = "<group>"; };
-		289233A30DB2D0840083E9F9 /* FlipsideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlipsideView.m; path = Classes/Views/FlipsideView.m; sourceTree = "<group>"; };
-		289233A40DB2D0840083E9F9 /* MainView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainView.h; path = Classes/Views/MainView.h; sourceTree = "<group>"; };
-		289233A50DB2D0840083E9F9 /* MainView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainView.m; path = Classes/Views/MainView.m; sourceTree = "<group>"; };
 		289233A80DB2D0DB0083E9F9 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainViewController.h; path = Classes/Controllers/MainViewController.h; sourceTree = "<group>"; };
 		289233AA0DB2D0DB0083E9F9 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Controllers/RootViewController.h; sourceTree = "<group>"; };
 		289233AB0DB2D0DB0083E9F9 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Controllers/RootViewController.m; sourceTree = "<group>"; };
@@ -83,8 +79,6 @@
 		DC1EBBE90EDBAEFA0093FA18 /* WaitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WaitView.h; path = Classes/Views/WaitView.h; sourceTree = "<group>"; };
 		DC1EBBEA0EDBAEFA0093FA18 /* WaitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitView.m; path = Classes/Views/WaitView.m; sourceTree = "<group>"; };
 		DC25A1FA0EEA575D0038078B /* ChartViewDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartViewDatasource.h; path = Classes/Controllers/ChartViewDatasource.h; sourceTree = "<group>"; };
-		DC2975DC0F2BDBF3000D0E7E /* location_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = location_icon.png; path = Resources/location_icon.png; sourceTree = "<group>"; };
-		DC2975DD0F2BDBF4000D0E7E /* world_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = world_icon.png; path = Resources/world_icon.png; sourceTree = "<group>"; };
 		DC29826F102A784B009259BA /* ChartScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartScrollView.h; path = Classes/Views/ChartScrollView.h; sourceTree = "<group>"; };
 		DC2E8CDA0F188BFB00DCA0A7 /* HomeScreenIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HomeScreenIcon.png; path = Resources/HomeScreenIcon.png; sourceTree = "<group>"; };
 		DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = link_arrow.png; path = Resources/link_arrow.png; sourceTree = "<group>"; };
@@ -112,6 +106,12 @@
 		DC8EDBB10F107814009EAF2F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
 		DCA9355F0EDF722B0050113B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DCA9379A0EE1B3910050113B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		DCAF9D1211D65DAF007BDEEE /* FlipsideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlipsideView.xib; sourceTree = "<group>"; };
+		DCB04CED11D1D6F6000E7DF4 /* world_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "world_icon@2x.png"; sourceTree = "<group>"; };
+		DCB04CEF11D1D701000E7DF4 /* location_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "location_icon@2x.png"; sourceTree = "<group>"; };
+		DCB04CF511D1D8C9000E7DF4 /* HomeScreenIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HomeScreenIcon@2x.png"; sourceTree = "<group>"; };
+		DCB04D1211D1DAEB000E7DF4 /* location_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location_icon.png; sourceTree = "<group>"; };
+		DCB04D1611D1DB58000E7DF4 /* world_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = world_icon.png; path = "../../../../Desktop/shralptide images/world_icon.png"; sourceTree = SOURCE_ROOT; };
 		DCC7EB670F20622800E6904E /* CONTRIBUTORS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CONTRIBUTORS.txt; path = FMDB/CONTRIBUTORS.txt; sourceTree = "<group>"; };
 		DCC7EB680F20622800E6904E /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = FMDB/LICENSE.txt; sourceTree = "<group>"; };
 		DCC7EB690F20622800E6904E /* CHANGES_AND_TODO_LIST.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CHANGES_AND_TODO_LIST.txt; path = FMDB/CHANGES_AND_TODO_LIST.txt; sourceTree = "<group>"; };
@@ -177,8 +177,6 @@
 		281C6CD70DB2D82200F60ACC /* Flipside View */ = {
 			isa = PBXGroup;
 			children = (
-				289233A20DB2D0840083E9F9 /* FlipsideView.h */,
-				289233A30DB2D0840083E9F9 /* FlipsideView.m */,
 				289233AC0DB2D0DB0083E9F9 /* FlipsideViewController.h */,
 				289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */,
 			);
@@ -188,8 +186,6 @@
 		289233A00DB2D0730083E9F9 /* Main View */ = {
 			isa = PBXGroup;
 			children = (
-				289233A40DB2D0840083E9F9 /* MainView.h */,
-				289233A50DB2D0840083E9F9 /* MainView.m */,
 				289233A80DB2D0DB0083E9F9 /* MainViewController.h */,
 				DC2F28490E5A758800577E55 /* MainViewController.m */,
 				DCCA6F481065440F00322BC6 /* CurrentTideView.h */,
@@ -235,15 +231,18 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DCAF9D1211D65DAF007BDEEE /* FlipsideView.xib */,
+				DCB04D1611D1DB58000E7DF4 /* world_icon.png */,
+				DCB04D1211D1DAEB000E7DF4 /* location_icon.png */,
+				DCB04CF511D1D8C9000E7DF4 /* HomeScreenIcon@2x.png */,
+				DCB04CEF11D1D701000E7DF4 /* location_icon@2x.png */,
+				DCB04CED11D1D6F6000E7DF4 /* world_icon@2x.png */,
 				DC5B86D80F55192C00231523 /* bullet_yellow.png */,
-				DC2975DC0F2BDBF3000D0E7E /* location_icon.png */,
-				DC2975DD0F2BDBF4000D0E7E /* world_icon.png */,
 				DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */,
 				DC2E8CDA0F188BFB00DCA0A7 /* HomeScreenIcon.png */,
 				DC8EDBB10F107814009EAF2F /* Default.png */,
 				DC8ED8080F0D8C3B009EAF2F /* Decreasing.png */,
 				DC8ED8090F0D8C3B009EAF2F /* Increasing.png */,
-				280E754A0DD40C5E005A515E /* FlipsideView.xib */,
 				280E754B0DD40C5E005A515E /* MainView.xib */,
 				280E754C0DD40C5E005A515E /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -384,7 +383,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				280E754D0DD40C5E005A515E /* FlipsideView.xib in Resources */,
 				280E754E0DD40C5E005A515E /* MainView.xib in Resources */,
 				280E754F0DD40C5E005A515E /* MainWindow.xib in Resources */,
 				DCFD597A0E39AB0100B7B1B8 /* harmonics in Resources */,
@@ -400,9 +398,13 @@
 				DCC7EB6B0F20622800E6904E /* LICENSE.txt in Resources */,
 				DCC7EB6C0F20622800E6904E /* CHANGES_AND_TODO_LIST.txt in Resources */,
 				DC493E5D0F206C8B0087B341 /* COPYING in Resources */,
-				DC2975DE0F2BDBF4000D0E7E /* location_icon.png in Resources */,
-				DC2975DF0F2BDBF4000D0E7E /* world_icon.png in Resources */,
 				DC5B86D90F55192C00231523 /* bullet_yellow.png in Resources */,
+				DCB04CEE11D1D6F6000E7DF4 /* world_icon@2x.png in Resources */,
+				DCB04CF011D1D701000E7DF4 /* location_icon@2x.png in Resources */,
+				DCB04CF611D1D8C9000E7DF4 /* HomeScreenIcon@2x.png in Resources */,
+				DCB04D1311D1DAEB000E7DF4 /* location_icon.png in Resources */,
+				DCB04D1711D1DB58000E7DF4 /* world_icon.png in Resources */,
+				DCAF9D1311D65DAF007BDEEE /* FlipsideView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,8 +419,6 @@
 				DCFD59570E39A98100B7B1B8 /* timelib.c in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* ShralpTideAppDelegate.m in Sources */,
-				289233A60DB2D0840083E9F9 /* FlipsideView.m in Sources */,
-				289233A70DB2D0840083E9F9 /* MainView.m in Sources */,
 				289233AF0DB2D0DB0083E9F9 /* RootViewController.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */,
 				DCFD59470E39A93D00B7B1B8 /* SDTide.m in Sources */,
@@ -448,7 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee (25H7G2523Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -464,14 +464,16 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "454B479C-26F9-4ABE-BA4D-609A0103ECA3";
-				SDKROOT = iphoneos2.2.1;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos4.0;
 				STRIP_INSTALLED_PRODUCT = NO;
 				WARNING_CFLAGS = "-Wl,-M";
 			};
@@ -481,7 +483,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee (25H7G2523Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Parlee";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -489,14 +491,16 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShralpTide_Prefix.pch;
-				GCC_VERSION = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
@@ -539,7 +543,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				PREBINDING = NO;
-				SDKROOT = iphoneos2.2;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Distribution;
 		};
@@ -555,7 +559,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShralpTide_Prefix.pch;
-				GCC_VERSION = "";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -565,7 +569,7 @@
 				OTHER_LDFLAGS = "-lsqlite3";
 				PRODUCT_NAME = ShralpTide;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3135CB72-1CB1-4C43-8C50-0A1D61BF5088";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Distribution;
 		};
