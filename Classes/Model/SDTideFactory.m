@@ -103,7 +103,7 @@
 			if (round(height1) == round(height2)) {
 				for (id object in pair) {
 					[filteredEvents removeObject: object];
-					NSLog(@"Removed tide: %@");
+					NSLog(@"Removed tide: %@",object);
 				}
 			}
 			[pair removeObjectAtIndex:0];
