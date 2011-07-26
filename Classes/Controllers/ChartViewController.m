@@ -27,6 +27,7 @@
 
 @synthesize sdTide;
 
+
 // Override initWithNibName:bundle: to load the view using a nib file then perform additional customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil tide:(SDTide *)aTide {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -52,15 +53,6 @@
 	NSLog(@"ChartView showCurrentTime called.");
 	[(ChartView*)self.view animateCursorViewToCurrentTime];
 }
-
-//-(void)drawChart {
-//	NSLog(@"Drawing chart...");
-//	ChartView *chartView = (ChartView*)self.view;
-//	[chartView.activityIndicator stopAnimating];
-//	[chartView.activityIndicator removeFromSuperview];
-//	chartView.displayChart = YES;
-//	[chartView setNeedsDisplay];
-//}
 
 #pragma mark ChartViewDatasource
 -(SDTide *)tideDataToChart {

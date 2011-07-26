@@ -26,12 +26,10 @@
 @implementation SDTideInterval
 -initWithDate:(NSDate*)date andHeight:(float)tideHeight
 {
-    if (![self init]) {
-        return nil;
+    if (self = [super init]) {
+        time = [date retain];
+        height = tideHeight;
     }
-    
-    time = [date retain];
-    height = tideHeight;
     
     return self;
 }

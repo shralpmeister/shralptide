@@ -238,7 +238,23 @@
 	NSNumber *minLatitude = [NSNumber numberWithInt:(int)latitude - 2];
 	NSNumber *maxLatitude = [NSNumber numberWithInt:(int)latitude + 2];
 	
-	FMDatabase* db = [FMDatabase databaseWithPath:[[NSBundle mainBundle] pathForResource:@"tidestations" ofType:@"sqlite"]];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    
+    NSString *cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    
+    NSString *datastorePath = [[NSBundle mainBundle] pathForResource:@"tidestations" ofType:@"sqlite"];
+    
+    NSString *cachedDatastorePath = [cachesDir stringByAppendingPathComponent:@"tidestations.sqlite"];
+    
+    if (![fm fileExistsAtPath:cachedDatastorePath]) {
+        NSError *error;
+        if (![fm copyItemAtPath:datastorePath toPath:cachedDatastorePath error:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);
+        };
+    }
+    
+	FMDatabase* db = [FMDatabase databaseWithPath:cachedDatastorePath];
     if (![db open]) {
         NSLog(@"Could not open db.");
     }

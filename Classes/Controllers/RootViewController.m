@@ -47,11 +47,12 @@
 - (NSString*)lastLocation;
 - (BOOL)writeApplicationPlist:(id)plist toFile:(NSString *)fileName;
 - (id)applicationPlistFromFile:(NSString *)fileName;
-- (BOOL)writeApplicationData:(NSData *)data toFile:(NSString *)fileName;
-- (NSData *)applicationDataFromFile:(NSString *)fileName;
 - (void)replaceSubview:(UIView *)oldView withSubview:(UIView *)newView transition:(NSString *)transition direction:(NSString *)direction duration:(NSTimeInterval)duration;
 - (void)refreshLocationTable;
 - (void)setDefaultLocation;
+
+@property (nonatomic,retain) NSString *cachedLocationFilePath;
+
 @end
 
 static NSUInteger kNumberOfPages = 5;
@@ -78,8 +79,12 @@ static NSUInteger kNumberOfPages = 5;
 @synthesize tideStation;
 @synthesize nearbyLocations;
 @synthesize allLocations;
+@synthesize cachedLocationFilePath;
 
 - (void)viewDidLoad {
+    NSString *cachesDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    self.cachedLocationFilePath = [cachesDir stringByAppendingPathComponent:@"tidestate.plist"];
+    
 	NSString *lastLocation = [[self lastLocation] retain];
 	
 	if (lastLocation) {
@@ -338,20 +343,17 @@ static NSUInteger kNumberOfPages = 5;
     if (page < 0) return;
     if (page >= kNumberOfPages) return;
 	
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
     // replace the placeholder if necessary
     ChartViewController *controller = [chartViewControllers objectAtIndex:page];
     if ((NSNull *)controller == [NSNull null]) {
 		controller = [[ChartViewController alloc] initWithNibName:@"ChartView" bundle:nil tide:[[viewControllers objectAtIndex:page] sdTide]];
         [chartViewControllers replaceObjectAtIndex:page withObject:controller];
+        [controller release];
     } else {
 		if (controller.sdTide == nil) {
 			[controller setSdTide:[[viewControllers objectAtIndex:page] sdTide]];
 		}
 	}
-	
-	[pool release];
 	
     // add the controller's view to the scroll view
     if (nil == controller.view.superview) {
@@ -368,8 +370,8 @@ static NSUInteger kNumberOfPages = 5;
 	[self startWaitIndicator];
 	[waitReason setText:@"Determining current location."];
 
-	self.locationManager = [[CLLocationManager alloc] init];
-	self.locationManager.delegate = self; // Tells the location manager to send updates to this object
+	locationManager = [[CLLocationManager alloc] init];
+	locationManager.delegate = self; // Tells the location manager to send updates to this object
 	
 	acceptLocationUpdates = YES;
 	
@@ -393,7 +395,7 @@ static NSUInteger kNumberOfPages = 5;
 	NSSortDescriptor *nameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending: YES];
 	NSArray *descriptors = [NSArray arrayWithObjects:sortDescriptor,nameDescriptor,nil];
 	
-	[self.nearbyLocations sortUsingDescriptors:descriptors];
+	self.nearbyLocations = [self.nearbyLocations sortedArrayUsingDescriptors:descriptors];
 	
 	self.locations = self.nearbyLocations;
 	
@@ -479,6 +481,13 @@ static NSUInteger kNumberOfPages = 5;
 	[self startWaitIndicator];
 	[NSThread detachNewThreadSelector:@selector(recalculateTides:) toTarget:self withObject:nil];
 	[[(MainViewController*)[viewControllers objectAtIndex:0] currentTideView] becomeFirstResponder];
+    
+    /* make sure that we show the current time whenever the view is changed or reappears */
+    int page = pageControl.currentPage;
+    ChartViewController *chartController = (ChartViewController*)[chartViewControllers objectAtIndex:page];
+    if (![chartController isKindOfClass: [NSNull class]]) {
+        [chartController showCurrentTime];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -591,7 +600,6 @@ static NSUInteger kNumberOfPages = 5;
 	frame.origin.y = 0;
 	[(MainViewController*)[viewControllers objectAtIndex:page] view].frame = frame;
 	[scrollView scrollRectToVisible:frame animated:NO];
-
 	
 	[(MainViewController*)[self.viewControllers objectAtIndex:0] updatePresentTideInfo];
 	[self replaceSubview:chartView withSubview:mainView transition:kCATransitionFade direction:@"" duration:0.75];
@@ -616,6 +624,7 @@ static NSUInteger kNumberOfPages = 5;
 	frame.origin.y = 0;
 	ChartViewController *viewController = (ChartViewController*)[chartViewControllers objectAtIndex:page];
 	viewController.view.frame = frame;
+    [viewController showCurrentTime];
 
 	[chartScrollView scrollRectToVisible:frame animated:NO];
 	[chartView setNeedsLayout];
@@ -927,15 +936,18 @@ static NSUInteger kNumberOfPages = 5;
 	}
 
 #pragma mark savestate
+#pragma mark savestate
 - (void)saveState {
 	NSMutableDictionary *plist = [[NSMutableDictionary alloc] initWithCapacity:1];
 	[plist setObject:location forKey:@"location"];
-	[self writeApplicationPlist:plist toFile:@"tidestate.plist"];
+    
+	[self writeApplicationPlist:plist toFile:self.cachedLocationFilePath];
+    
 	[plist release];
 }
 
 -(NSString*)lastLocation {
-	NSDictionary *plist = [self applicationPlistFromFile:@"tidestate.plist"];
+	NSDictionary *plist = [self applicationPlistFromFile:self.cachedLocationFilePath];
 	return (NSString *)[plist objectForKey:@"location"];
 }
 
@@ -946,7 +958,7 @@ static NSUInteger kNumberOfPages = 5;
         NSLog(@"%@", error);
         return NO;
     }
-    return ([self writeApplicationData:pData toFile:(NSString *)fileName]);
+    return ([pData writeToFile:self.cachedLocationFilePath atomically:YES]);
 }
 
 - (id)applicationPlistFromFile:(NSString *)fileName {
@@ -955,7 +967,7 @@ static NSUInteger kNumberOfPages = 5;
     id retPlist;
     NSPropertyListFormat format;
 	
-    retData = [self applicationDataFromFile:fileName];
+    retData = [[NSData alloc] initWithContentsOfFile:self.cachedLocationFilePath];
     if (!retData) {
         NSLog(@"Data file not returned.");
         return nil;
@@ -964,26 +976,9 @@ static NSUInteger kNumberOfPages = 5;
     if (!retPlist){
         NSLog(@"Plist not returned, error: %@", error);
     }
+    [retData release];
+    
     return retPlist;
 }
 
-- (BOOL)writeApplicationData:(NSData *)data toFile:(NSString *)fileName {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    if (!documentsDirectory) {
-        NSLog(@"Documents directory not found!");
-        return NO;
-    }
-    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:fileName];
-    return ([data writeToFile:appFile atomically:YES]);
-}
-
-- (NSData *)applicationDataFromFile:(NSString *)fileName {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:fileName];
-    NSData *myData = [[[NSData alloc] initWithContentsOfFile:appFile] autorelease];
-    return myData;
-}
-	
 @end

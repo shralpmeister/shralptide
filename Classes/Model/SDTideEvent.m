@@ -26,14 +26,12 @@
 @implementation SDTideEvent
 -(id)initWithTime:(NSDate *)time Event:(SDTideState)state andHeight:(float)height;
 {
-    if (![self init]) {
-        return nil;
+    if (self = [super init]) {
+        eventTime = [time retain];
+        eventType = state;
+        eventHeight = height;
     }
-    
-    eventTime = [time retain];
-    eventType = state;
-    eventHeight = height;
-    
+
     return self;    
 }
 

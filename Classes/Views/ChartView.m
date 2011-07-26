@@ -32,6 +32,7 @@
 - (NSDate*)midnight;
 - (NSString*)timeInNativeFormatFromMinutes:(int)minutesSinceMidnight;
 - (NSString*)timeIn24HourFormatFromMinutes:(int)minutesSinceMidnight;
+- (void)animateFirstTouchAtPoint:(CGPoint)touchPoint;
 @end
 
 @implementation ChartView

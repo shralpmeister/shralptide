@@ -34,18 +34,16 @@
 
 -(id)initWithTideStation:(SDTideStation *)station StartDate: (NSDate*)start EndDate:(NSDate*)end Events:(NSArray*)tideEvents andIntervals:(NSArray*)tideIntervals
 {
-    if (![super init]) {
-        return nil;
+    if (self = [super init]) {
+        NSAssert(start != nil, @"Start date must not be nil");
+        NSAssert(end != nil, @"End date must not be nil");
+        
+        startTime = [start retain];
+        stopTime = [end retain];
+        intervals = [tideIntervals retain];
+        events = [tideEvents retain];
+        self.tideStation = station;
     }
-    
-    NSAssert(start != nil, @"Start date must not be nil");
-    NSAssert(end != nil, @"End date must not be nil");
-    
-    startTime = [start retain];
-    stopTime = [end retain];
-    intervals = [tideIntervals retain];
-    events = [tideEvents retain];
-	self.tideStation = station;
     
     return self;
 }

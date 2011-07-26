@@ -33,7 +33,6 @@
 
 -(void)showCurrentTime;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil tide:(SDTide *)aTide;
-//-(void)drawChart;
 
 @property (nonatomic,retain) SDTide *sdTide;
 @end
