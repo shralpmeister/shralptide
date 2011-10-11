@@ -680,9 +680,7 @@ static NSUInteger kNumberOfPages = 5;
 	
     if (cell == nil)
     {
-		CGRect frame = CGRectMake(0, 0, 300, 60);
-        cell = [[[UITableViewCell alloc] initWithFrame:frame reuseIdentifier:@"TideStationCell"] autorelease];
-
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"TideStationCell"] autorelease];
 		name = [[[UILabel alloc] initWithFrame:CGRectMake(10.0, 0.0, 300.0, 23.0)] autorelease];
 		name.tag = 1;
 		name.font = [UIFont boldSystemFontOfSize:20.0];
