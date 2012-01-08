@@ -17,7 +17,6 @@
 		289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 289233AD0DB2D0DB0083E9F9 /* FlipsideViewController.m */; };
 		DC0C0DD6105C1D8F0080297E /* ChartScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC0C0DD5105C1D8F0080297E /* ChartScrollView.m */; };
 		DC1EBBEB0EDBAEFA0093FA18 /* WaitView.m in Sources */ = {isa = PBXBuildFile; fileRef = DC1EBBEA0EDBAEFA0093FA18 /* WaitView.m */; };
-		DC2E8CDB0F188BFB00DCA0A7 /* HomeScreenIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2E8CDA0F188BFB00DCA0A7 /* HomeScreenIcon.png */; };
 		DC2E8CDD0F188C2100DCA0A7 /* link_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */; };
 		DC2F284A0E5A758800577E55 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F28490E5A758800577E55 /* MainViewController.m */; };
 		DC2F28660E5A75D500577E55 /* arglib.c in Sources */ = {isa = PBXBuildFile; fileRef = DC2F28640E5A75D500577E55 /* arglib.c */; };
@@ -33,6 +32,7 @@
 		DC8ED80C0F0D8C3B009EAF2F /* Decreasing.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8ED8080F0D8C3B009EAF2F /* Decreasing.png */; };
 		DC8ED80D0F0D8C3B009EAF2F /* Increasing.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8ED8090F0D8C3B009EAF2F /* Increasing.png */; };
 		DC8EDBB20F107814009EAF2F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = DC8EDBB10F107814009EAF2F /* Default.png */; };
+		DC9937CF1444AD5600BC9506 /* HomeScreenIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = DC9937CE1444AD5600BC9506 /* HomeScreenIcon.png */; };
 		DCA935600EDF722B0050113B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA9355F0EDF722B0050113B /* CoreLocation.framework */; };
 		DCA9379B0EE1B3910050113B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCA9379A0EE1B3910050113B /* CoreGraphics.framework */; };
 		DCAF9D1311D65DAF007BDEEE /* FlipsideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DCAF9D1211D65DAF007BDEEE /* FlipsideView.xib */; };
@@ -80,7 +80,6 @@
 		DC1EBBEA0EDBAEFA0093FA18 /* WaitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WaitView.m; path = Classes/Views/WaitView.m; sourceTree = "<group>"; };
 		DC25A1FA0EEA575D0038078B /* ChartViewDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartViewDatasource.h; path = Classes/Controllers/ChartViewDatasource.h; sourceTree = "<group>"; };
 		DC29826F102A784B009259BA /* ChartScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChartScrollView.h; path = Classes/Views/ChartScrollView.h; sourceTree = "<group>"; };
-		DC2E8CDA0F188BFB00DCA0A7 /* HomeScreenIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HomeScreenIcon.png; path = Resources/HomeScreenIcon.png; sourceTree = "<group>"; };
 		DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = link_arrow.png; path = Resources/link_arrow.png; sourceTree = "<group>"; };
 		DC2F28490E5A758800577E55 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MainViewController.m; path = Classes/Controllers/MainViewController.m; sourceTree = "<group>"; };
 		DC2F28640E5A75D500577E55 /* arglib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = arglib.c; path = XTide/arglib.c; sourceTree = "<group>"; };
@@ -104,6 +103,7 @@
 		DC8ED8080F0D8C3B009EAF2F /* Decreasing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Decreasing.png; path = Resources/Decreasing.png; sourceTree = "<group>"; };
 		DC8ED8090F0D8C3B009EAF2F /* Increasing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Increasing.png; path = Resources/Increasing.png; sourceTree = "<group>"; };
 		DC8EDBB10F107814009EAF2F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Resources/Default.png; sourceTree = "<group>"; };
+		DC9937CE1444AD5600BC9506 /* HomeScreenIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HomeScreenIcon.png; sourceTree = "<group>"; };
 		DCA9355F0EDF722B0050113B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		DCA9379A0EE1B3910050113B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		DCAF9D1211D65DAF007BDEEE /* FlipsideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlipsideView.xib; sourceTree = "<group>"; };
@@ -199,6 +199,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				DCB04CF511D1D8C9000E7DF4 /* HomeScreenIcon@2x.png */,
+				DC9937CE1444AD5600BC9506 /* HomeScreenIcon.png */,
 				DC1EBBE80EDBAEE50093FA18 /* WaitView */,
 				DC4F13380ED91F1C00AD8A17 /* fmdb */,
 				DCFD59320E39A90A00B7B1B8 /* objctidelib */,
@@ -234,12 +236,10 @@
 				DCAF9D1211D65DAF007BDEEE /* FlipsideView.xib */,
 				DCB04D1611D1DB58000E7DF4 /* world_icon.png */,
 				DCB04D1211D1DAEB000E7DF4 /* location_icon.png */,
-				DCB04CF511D1D8C9000E7DF4 /* HomeScreenIcon@2x.png */,
 				DCB04CEF11D1D701000E7DF4 /* location_icon@2x.png */,
 				DCB04CED11D1D6F6000E7DF4 /* world_icon@2x.png */,
 				DC5B86D80F55192C00231523 /* bullet_yellow.png */,
 				DC2E8CDC0F188C2100DCA0A7 /* link_arrow.png */,
-				DC2E8CDA0F188BFB00DCA0A7 /* HomeScreenIcon.png */,
 				DC8EDBB10F107814009EAF2F /* Default.png */,
 				DC8ED8080F0D8C3B009EAF2F /* Decreasing.png */,
 				DC8ED8090F0D8C3B009EAF2F /* Increasing.png */,
@@ -395,7 +395,6 @@
 				DC8ED80C0F0D8C3B009EAF2F /* Decreasing.png in Resources */,
 				DC8ED80D0F0D8C3B009EAF2F /* Increasing.png in Resources */,
 				DC8EDBB20F107814009EAF2F /* Default.png in Resources */,
-				DC2E8CDB0F188BFB00DCA0A7 /* HomeScreenIcon.png in Resources */,
 				DC2E8CDD0F188C2100DCA0A7 /* link_arrow.png in Resources */,
 				DCCAD9320F1DD25E00141002 /* DeveloperSettings.xcconfig in Resources */,
 				DCC7EB6A0F20622800E6904E /* CONTRIBUTORS.txt in Resources */,
@@ -409,6 +408,7 @@
 				DCB04D1311D1DAEB000E7DF4 /* location_icon.png in Resources */,
 				DCB04D1711D1DB58000E7DF4 /* world_icon.png in Resources */,
 				DCAF9D1311D65DAF007BDEEE /* FlipsideView.xib in Resources */,
+				DC9937CF1444AD5600BC9506 /* HomeScreenIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,6 +452,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Parlee (25H7G2523Q)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -488,6 +492,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Michael Parlee";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
